@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>価値観診断結果 - It's Me</title>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        /* モバイル専用表示のためのCSS */
+        body {
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 14px;
+            line-height: 1.5;
+            color: #1e293b;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* カスタムグラデーション背景 */
+        .gradient-background {
+            background: linear-gradient(160deg, #f0f9ff 0%, #e0f2fe 40%, #d8e6ff 100%);
+            min-height: 100vh;
+        }
+
+        /* コンテナ */
+        .max-w-2xl {
+            max-width: 100%;
+            padding: 1.5rem 1rem 3rem 1rem;
+            margin: 0 auto;
+        }
+
+        /* カードスタイル */
+        .content-card {
+            background-color: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 1rem;
+            box-shadow: 0 8px 32px rgba(100, 140, 200, 0.15);
+            padding: 1.25rem;
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+        }
+
+        /* ヘッダー部分 */
+        .flex-col.md\:flex-row {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            gap: 1rem;
+        }
+
+        /* 動物アイコン画像のサイズを拡大 */
+        .flex-shrink-0.relative.group.w-36.h-36,
+        .sm\:w-40.sm\:h-40 {
+            width: 7rem;
+            /* 約112px */
+            height: 7rem;
+            /* 約112px */
+            margin: 0.5rem auto 1.25rem auto;
+        }
+
+        /* 画像自体のスタイル調整 */
+        .w-full.h-full.object-contain.rounded-lg {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        /* オプション: ホバー時に少し拡大するエフェクト */
+        .w-full.h-full.object-contain.rounded-lg:hover {
+            transform: scale(1.05);
+        }
+
+        /* 背景グラデーションのサイズ調整（画像サイズに合わせる） */
+        .absolute.inset-0.bg-gradient-to-br {
+            transform: scale(1.15);
+            /* 背景をやや大きく */
+            filter: blur(12px);
+            /* ぼかしを少し強く */
+        }
+
+        .flex-shrink-0.relative.group img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* テキストスタイル */
+        .text-base.text-neutral-600 {
+            font-size: 0.875rem;
+            color: #64748b;
+            margin: 0.25rem 0;
+        }
+
+        .text-2xl.font-bold.text-accent-gold {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #d4af37;
+            margin: 0.25rem 0;
+        }
+
+        .text-xl.font-semibold.text-neutral-800 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin: 0.25rem 0;
+        }
+
+        .text-3xl.sm\:text-4xl.font-bold.text-primary-600 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2563eb;
+            margin: 0.5rem 0 1rem 0;
+        }
+
+        /* シェアボタン */
+        #shareButton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.625rem 1.25rem;
+            border-radius: 9999px;
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            color: #64748b;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            min-height: 44px;
+            transition: all 0.3s ease;
+        }
+
+        #shareButton:active {
+            transform: scale(0.98);
+        }
+
+        #shareFeedback {
+            height: 1rem;
+            min-height: 1rem;
+            font-size: 0.75rem;
+            color: #10b981;
+            margin-top: 0.5rem;
+        }
+
+        /* 価値観TOP5 */
+        .text-xl.font-bold.text-neutral-800 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .space-y-6 {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        /* 価値観項目 */
+        .value-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .value-item .flex {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .flex-shrink-0.w-8.h-8.rounded-full {
+            width: 2rem;
+            height: 2rem;
+            border-radius: 9999px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.875rem;
+            flex-shrink: 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .flex-1 {
+            flex: 1;
+        }
+
+        .flex.justify-between.items-baseline {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 0.375rem;
+        }
+
+        .text-base.font-medium.text-neutral-700 {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .text-sm.font-semibold {
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        /* プログレスバー */
+        .w-full.bg-neutral-200.rounded-full {
+            width: 100%;
+            height: 0.5rem;
+            background-color: #e5e7eb;
+            border-radius: 9999px;
+            overflow: hidden;
+        }
+
+        .h-full.rounded-full {
+            height: 100%;
+            border-radius: 9999px;
+        }
+
+        /* アドバイスセクション */
+        .text-xl.font-bold.text-neutral-800.text-center {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #1e293b;
+            text-align: center;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .space-y-8 {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        /* 以下は指定されたアドバイスカードのスタイルをそのまま維持 */
+        .advice-item {
+            position: relative;
+            padding: 1.25rem;
+            background-color: transparent;
+            border-radius: 0.75rem;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .advice-item::before {
+            content: '';
+            position: absolute;
+            top: 1rem;
+            left: 0.75rem;
+            width: 0.375rem;
+            height: 2rem;
+            border-radius: 9999px;
+            opacity: 0.8;
+            z-index: 1;
+            display: block;
+        }
+
+        .advice-item:nth-child(1)::before {
+            background-color: rgb(59, 130, 246);
+        }
+
+        .advice-item:nth-child(2)::before {
+            background-color: rgb(20, 184, 166);
+        }
+
+        .advice-item:nth-child(3)::before {
+            background-color: rgb(245, 158, 11);
+        }
+
+        .advice-item:nth-child(4)::before {
+            background-color: rgb(236, 72, 153);
+        }
+
+        .advice-item:nth-child(1) {
+            border-color: rgba(59, 130, 246, 0.7);
+        }
+
+        .advice-item:nth-child(2) {
+            border-color: rgba(20, 184, 166, 0.7);
+        }
+
+        .advice-item:nth-child(3) {
+            border-color: rgba(245, 158, 11, 0.7);
+        }
+
+        .advice-item:nth-child(4) {
+            border-color: rgba(236, 72, 153, 0.7);
+        }
+
+        /* アドバイス項目のテキスト・アイコン */
+        .flex.items-center.text-lg.font-semibold.text-neutral-800 {
+            display: flex;
+            align-items: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 0.5rem;
+            padding-left: 0.5rem;
+        }
+
+        .text-sm.text-neutral-600.leading-relaxed {
+            font-size: 0.813rem;
+            color: #64748b;
+            line-height: 1.5;
+            padding-left: 0.5rem;
+        }
+
+        /* キャリアと余暇リストをグリッドレイアウトに変更 */
+        .grid.grid-cols-2.sm\:grid-cols-3 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.5rem;
+            padding-left: 0.5rem;
+            margin-bottom: 0.5rem;
+            overflow-x: visible;
+        }
+
+        /* リストアイテムのスタイル調整 */
+        .grid.grid-cols-2.sm\:grid-cols-3 li {
+            white-space: normal;
+            margin-right: 0;
+            padding: 0.5rem;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 0.75rem;
+            font-size: 0.75rem;
+            color: #475569;
+            display: flex;
+            align-items: flex-start;
+            line-height: 1.3;
+        }
+
+        /* アイコンの位置調整 */
+        .grid.grid-cols-2.sm\:grid-cols-3 li svg {
+            width: 0.75rem;
+            height: 0.75rem;
+            margin-right: 0.375rem;
+            margin-top: 0.125rem;
+            flex-shrink: 0;
+        }
+
+        /* 長いテキストのアイテムが多いカテゴリはワードラップ可能に */
+        .advice-item:nth-child(3) .grid.grid-cols-2.sm\:grid-cols-3 li,
+        .advice-item:nth-child(4) .grid.grid-cols-2.sm\:grid-cols-3 li {
+            word-break: break-word;
+            hyphens: auto;
+        }
+
+        /* サブタイトルの調整 */
+        .text-sm.font-medium.text-neutral-700.mb-2.pl-5 {
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+            margin-top: 0.5rem;
+        }
+
+        /* 「さらに詳しく知る」ボタン */
+        .text-center.mt-10 {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        #moreInfoButton {
+            background: linear-gradient(to right, #2563eb, #4f46e5);
+            color: white;
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border-radius: 9999px;
+            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            min-height: 44px;
+            width: 100%;
+            max-width: 280px;
+            transition: all 0.3s ease;
+        }
+
+        #moreInfoButton:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.2);
+        }
+
+        /* 詳細情報セクション */
+        #moreInfoSection {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+        }
+
+        .grid.grid-cols-1.md\:grid-cols-2 {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .bg-primary-100.p-4.rounded-lg,
+        .bg-amber-50.p-4.rounded-lg {
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        /* フッター */
+        .mt-16.text-center.text-xs.text-neutral-500 {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #6b7280;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(226, 232, 240, 0.5);
+        }
+
+        /* アニメーション */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes growProgressBar {
+            from {
+                transform: scaleX(0);
+            }
+
+            to {
+                transform: scaleX(1);
+            }
+        }
+
+        .animate-fadeInUp {
+            animation: fadeInUp 0.5s ease-out forwards;
+        }
+
+        .animate-growProgressBar {
+            transform-origin: left;
+            animation: growProgressBar 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+        }
+
+        /* アニメーション遅延調整（モバイルでは短く） */
+        .delay-100 {
+            animation-delay: 0.05s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.15s;
+        }
+
+        .delay-400 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-500 {
+            animation-delay: 0.25s;
+        }
+
+        .delay-600 {
+            animation-delay: 0.3s;
+        }
+
+        .delay-700 {
+            animation-delay: 0.35s;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': { // より落ち着いた青系
+                            50: '#f0f8ff',
+                            100: '#e0f2fe',
+                            200: '#bce6fd',
+                            300: '#98d8fc',
+                            400: '#5cbcf8',
+                            500: '#38a8f5', // メインカラー調整
+                            600: '#248bd7',
+                            700: '#1b6fae',
+                            800: '#165a8d',
+                            900: '#144b73',
+                        },
+                        'accent': { // アクセントカラー (ヒョウのイメージから)
+                            'gold': '#d4af37',
+                            'warm': '#f59e0b', // 自己成長で使用
+                            'sky': '#38bdf8', // 知識で使用
+                            'earth': '#a16207', // 自己理解で使用
+                            'passion': '#ec4899', // 探求心で使用
+                            'deep-blue': '#6366f1', // 自律性で使用
+                        },
+                        'neutral': { // グレー系の調整
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'xl': '1rem',
+                        '2xl': '1.5rem',
+                        '3xl': '2rem',
+                    },
+                    boxShadow: {
+                        'subtle': '0 4px 12px rgba(0, 0, 0, 0.05)',
+                        'card': '0 8px 32px rgba(100, 140, 200, 0.15)',
+                        'card-hover': '0 12px 40px rgba(100, 140, 200, 0.2)',
+                        'button': '0 4px 15px rgba(0, 0, 0, 0.1)',
+                        'button-hover': '0 6px 20px rgba(0, 0, 0, 0.15)',
+                    },
+                    animation: {
+                        'pulse-gentle': 'pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fadeInUp': 'fadeInUp 0.6s ease-out forwards',
+                        'growProgressBar': 'growProgressBar 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            'from': { opacity: '0', transform: 'translateY(20px)' },
+                            'to': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        growProgressBar: {
+                            'from': { transform: 'scaleX(0)' },
+                            'to': { transform: 'scaleX(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="gradient-background min-h-screen text-neutral-800">
+    <div class="max-w-2xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+
+        <main class="space-y-10">
+            <section class="p-6 sm:p-8 animate-fadeInUp delay-100">
+                <div class="flex flex-col md:flex-row items-center gap-6 md:gap-8">
+                    <div class="flex-1 text-center md:text-left">
+                        <p class="text-base text-center text-neutral-600 mb-1">
+                            あなたのIt's Meタイプは
+                        </p>
+                        <p class="text-2xl text-center font-bold text-accent-gold mb-2">ヒョウ</p>
+                        <div class="flex-shrink-0 relative group w-36 h-36 sm:w-40 sm:h-40">
+                            <div
+                                class="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-200 rounded-full opacity-50 transition-opacity duration-300 ease-in-out scale-110 blur-md">
+                            </div>
+                            <img src="images/hyou.png" alt="ヒョウ - 自己成長と自己理解"
+                                class="w-full h-full object-contain rounded-lg transition duration-300 ease-in-out relative z-10">
+                        </div>
+                        <div style="height: 1.25rem;"></div>
+                        <p class="text-xl font-semibold text-neutral-800 mb-3">大事にしている価値観は</p>
+                        <h2 class="text-3xl sm:text-4xl font-bold text-primary-600 mb-6 leading-tight">自己成長と自己理解</h2>
+
+                        <button id="shareButton"
+                            class="inline-flex items-center justify-center gap-2 bg-white border border-neutral-300 rounded-full px-6 py-2.5 text-sm font-semibold text-neutral-700 shadow-subtle hover:bg-primary-50 hover:border-primary-300 hover:text-primary-600 active:scale-[0.97] transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 group btn-hover-effect">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round"
+                                class="transition-colors duration-200 ease-in-out group-hover:stroke-primary-600">
+                                <circle cx="18" cy="5" r="3"></circle>
+                                <circle cx="6" cy="12" r="3"></circle>
+                                <circle cx="18" cy="19" r="3"></circle>
+                                <line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
+                                <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line>
+                            </svg>
+                            結果をシェアする
+                        </button>
+                        <p id="shareFeedback" class="text-xs text-green-600 mt-2 h-4"></p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-card p-6 sm:p-8 animate-fadeInUp delay-200">
+                <h3 class="text-xl font-bold text-neutral-800 mb-6 flex items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.196-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
+                    </svg>
+                    あなたの価値観 TOP 5
+                </h3>
+
+                <div class="space-y-6">
+                    <div class="value-item animate-fadeInUp delay-300">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-md bg-accent-warm">
+                                1</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-baseline mb-1.5">
+                                    <span class="text-base font-medium text-neutral-700">自己成長</span>
+                                    <span class="text-sm font-semibold text-accent-warm">92%</span>
+                                </div>
+                                <div class="w-full bg-neutral-200 rounded-full h-3 overflow-hidden">
+                                    <div class="h-full rounded-full bg-accent-warm animate-growProgressBar"
+                                        style="width: 92%; animation-delay: 0.3s;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="value-item animate-fadeInUp delay-400">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-md bg-accent-sky">
+                                2</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-baseline mb-1.5">
+                                    <span class="text-base font-medium text-neutral-700">知識</span>
+                                    <span class="text-sm font-semibold text-accent-sky">85%</span>
+                                </div>
+                                <div class="w-full bg-neutral-200 rounded-full h-3 overflow-hidden">
+                                    <div class="h-full rounded-full bg-accent-sky animate-growProgressBar"
+                                        style="width: 85%; animation-delay: 0.4s;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="value-item animate-fadeInUp delay-500">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-md bg-accent-earth">
+                                3</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-baseline mb-1.5">
+                                    <span class="text-base font-medium text-neutral-700">自己理解</span>
+                                    <span class="text-sm font-semibold text-accent-earth">78%</span>
+                                </div>
+                                <div class="w-full bg-neutral-200 rounded-full h-3 overflow-hidden">
+                                    <div class="h-full rounded-full bg-accent-earth animate-growProgressBar"
+                                        style="width: 78%; animation-delay: 0.5s;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="value-item animate-fadeInUp delay-600">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-md bg-accent-passion">
+                                4</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-baseline mb-1.5">
+                                    <span class="text-base font-medium text-neutral-700">探求心</span>
+                                    <span class="text-sm font-semibold text-accent-passion">73%</span>
+                                </div>
+                                <div class="w-full bg-neutral-200 rounded-full h-3 overflow-hidden">
+                                    <div class="h-full rounded-full bg-accent-passion animate-growProgressBar"
+                                        style="width: 73%; animation-delay: 0.6s;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="value-item animate-fadeInUp delay-700">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-md bg-accent-deep-blue">
+                                5</div>
+                            <div class="flex-1">
+                                <div class="flex justify-between items-baseline mb-1.5">
+                                    <span class="text-base font-medium text-neutral-700">自律性</span>
+                                    <span class="text-sm font-semibold text-accent-deep-blue">68%</span>
+                                </div>
+                                <div class="w-full bg-neutral-200 rounded-full h-3 overflow-hidden">
+                                    <div class="h-full rounded-full bg-accent-deep-blue animate-growProgressBar"
+                                        style="width: 68%; animation-delay: 0.7s;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-card p-6 sm:p-8 animate-fadeInUp delay-300">
+                <h3 class="text-xl font-bold text-neutral-800 text-center mb-8 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-500" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
+                    あなたの価値観を活かすヒント
+                </h3>
+
+                <div class="space-y-8">
+                    <div class="advice-item">
+                        <h4 class="flex items-center text-lg font-semibold text-neutral-800 mb-3 pl-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-red-400 flex-shrink-0"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            結婚・恋人・恋愛
+                        </h4>
+                        <p class="text-sm text-neutral-600 leading-relaxed pl-5 pr-1">
+                            知的好奇心を共有できるパートナーとの関係が理想的です。互いの成長を支え合い、深い対話ができる関係を築くことで満足感を得られます。相手の個性や成長を尊重し、共に学び合える関係を大切にしましょう。
+                        </p>
+                    </div>
+
+                    <div class="advice-item">
+                        <h4 class="flex items-center text-lg font-semibold text-neutral-800 mb-3 pl-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-teal-500 flex-shrink-0"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path
+                                    d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                            </svg>
+                            友人・対人関係
+                        </h4>
+                        <p class="text-sm text-neutral-600 leading-relaxed pl-5 pr-1">
+                            刺激的な会話や新しい視点を提供してくれる友人との関係を大切にしましょう。多様な価値観や背景を持つ人々との交流が、あなたの視野を広げ、自己理解を深める助けになります。
+                        </p>
+                    </div>
+
+                    <div class="advice-item">
+                        <h4 class="flex items-center text-lg font-semibold text-neutral-800 mb-3 pl-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-amber-500 flex-shrink-0"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
+                                    clip-rule="evenodd" />
+                                <path
+                                    d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0010 15.092 24.97 24.97 0 002 13.692z" />
+                            </svg>
+                            キャリア・仕事
+                        </h4>
+                        <p class="text-sm text-neutral-600 leading-relaxed mb-4 pl-5 pr-1">
+                            継続的な学びと成長の機会がある環境が適しています。知的好奇心を満たし、専門性を深められる仕事で能力を発揮しやすいでしょう。自律性が高く、探求心を活かせる職種がおすすめです。
+                        </p>
+                        <p class="text-sm font-medium text-neutral-700 mb-2 pl-5">適した職種の例:</p>
+                        <ul class="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1.5 pl-5 pr-1">
+                            <!-- 研究者 -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                研究者
+                            </li>
+
+                            <!-- 教育者 -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                教育者
+                            </li>
+
+                            <!-- コンサルタント -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                コンサルタント
+                            </li>
+
+                            <!-- 作家・ジャーナリスト -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                作家・ジャーナリスト
+                            </li>
+
+                            <!-- データサイエンティスト -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                データサイエンティスト
+                            </li>
+
+                            <!-- エンジニア -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                エンジニア
+                            </li>
+
+                            <!-- プロジェクトマネージャー -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                プロジェクトマネージャー
+                            </li>
+
+                            <!-- 起業家 -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                起業家
+                            </li>
+
+                            <!-- セラピスト -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                セラピスト
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="advice-item">
+                        <h4 class="flex items-center text-lg font-semibold text-neutral-800 mb-3 pl-5">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-rose-500 flex-shrink-0"
+                                viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd"
+                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.414-1.414L11 10.586V6z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                            おすすめの余暇・レジャー
+                        </h4>
+                        <ul class="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1.5 pl-5 pr-1">
+                            <!-- 読書 -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                読書
+                            </li>
+
+                            <!-- オンライン学習 -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                オンライン学習
+                            </li>
+
+                            <!-- 博物館・美術館巡り -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                博物館・美術館巡り
+                            </li>
+
+                            <!-- 旅行 (特に知的好奇心を刺激する場所) -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                旅行
+                            </li>
+
+                            <!-- ジャーナリング・内省 -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                ジャーナリング・内省
+                            </li>
+
+                            <!-- ワークショップ・セミナー参加 -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                ワークショップ・セミナー参加
+                            </li>
+
+                            <!-- 瞑想・マインドフルネス実践 -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                瞑想・マインドフルネス実践
+                            </li>
+
+                            <!-- 新しい趣味の探求 -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                新しい趣味の探求
+                            </li>
+
+                            <!-- ドキュメンタリー鑑賞 -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                ドキュメンタリー鑑賞
+                            </li>
+
+                            <!-- ボードゲーム・パズル -->
+                            <li class="text-sm text-neutral-600 flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                                ボードゲーム・パズル
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <div class="text-center mt-10 animate-fadeInUp delay-400">
+                <button id="moreInfoButton"
+                    class="bg-gradient-to-r from-primary-500 to-blue-600 hover:from-primary-600 hover:to-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-button hover:shadow-button-hover active:scale-[0.97] transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 flex items-center justify-center mx-auto btn-hover-effect">
+                    さらに詳しく知る
+                </button>
+            </div>
+
+            <section id="moreInfoSection" class="content-card p-6 sm:p-8 mt-10"
+                style="display: none; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease-out, transform 0.5s ease-out;">
+                <h3 class="text-xl font-bold text-neutral-800 text-center mb-8 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-500" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    あなたの価値観をより深く理解する
+                </h3>
+                <div class="prose prose-neutral max-w-none prose-sm sm:prose-base">
+                    <p>
+                        自己成長と自己理解を最重視するあなたは、人生を通じて常に学び、自分自身を高めていくことに強い意欲を持っています。単にスキルや知識を習得するだけでなく、自身の内面と向き合い、感情や思考パターンを理解し、より良い自分であろうと努める探求者です。
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                        <div class="bg-primary-100 p-4 rounded-lg border border-primary-300">
+                            <h4 class="font-semibold text-primary-700 mb-2 !mt-0">あなたの強み</h4>
+                            <ul class="!pl-0 !list-none space-y-1.5">
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-5 w-5 mr-2 text-primary-500 flex-shrink-0 mt-0.5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span>継続的な学習意欲と高い吸収力</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-5 w-5 mr-2 text-primary-500 flex-shrink-0 mt-0.5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span>深い自己省察とメタ認知能力</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-5 w-5 mr-2 text-primary-500 flex-shrink-0 mt-0.5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span>困難な経験からも学びを得るレジリエンス</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="bg-amber-50 p-4 rounded-lg border border-amber-200">
+                            <h4 class="font-semibold text-amber-700 mb-2 !mt-0">成長のためのヒント</h4>
+                            <ul class="!pl-0 !list-none space-y-1.5">
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-5 w-5 mr-2 text-amber-500 flex-shrink-0 mt-0.5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span>完璧主義を手放し、過程を楽しむことを意識する</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-5 w-5 mr-2 text-amber-500 flex-shrink-0 mt-0.5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span>知識のインプットだけでなく、実践・アウトプットの機会を増やす</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                        class="h-5 w-5 mr-2 text-amber-500 flex-shrink-0 mt-0.5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    <span>他者との対話や協働を通じて、多様な視点を取り入れる</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="content-card p-6 sm:p-8 mt-8 animate-fadeInUp">
+                <div class="flex flex-col items-center text-center">
+                    <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-600" fill="none"
+                            viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-neutral-800 mb-3">あなたに合わせたアドバイス</h3>
+                    <p class="text-sm text-neutral-600 mb-6">
+                        自己成長と自己理解を大切にするあなたへ。<br>
+                        価値観に基づいた具体的なアドバイスを価値観アドバイザーから受けてみませんか？
+                    </p>
+                    <button id="startChatButton"
+                        class="bg-primary-500 hover:bg-primary-600 text-white font-medium py-2.5 px-6 rounded-full shadow-md hover:shadow-lg transition duration-300 ease-in-out transform hover:-translate-y-1 active:translate-y-0 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                        </svg>
+                        価値観アドバイザーと話す
+                    </button>
+                </div>
+            </section>
+
+        </main>
+
+        <footer
+            class="mt-16 text-center text-xs text-neutral-500 py-6 border-t border-neutral-200/50 animate-fadeInUp delay-500">
+            <p class="mb-1">&copy; 2025 It's Me - あなたの価値観発見ツール</p>
+            <p>自分らしさを大切に、充実した毎日を。</p>
+        </footer>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Intersection Observer for animations
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1 // 10%見えたら発火
+            };
+
+            const observerCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                        // 一度表示されたら監視を解除 (オプション)
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+            const elementsToAnimate = document.querySelectorAll('.animate-fadeInUp');
+            elementsToAnimate.forEach(el => {
+                el.style.opacity = '0'; // 初期状態を確実に非表示に
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+                // アニメーション遅延はCSS側で設定
+                observer.observe(el);
+            });
+
+            // プログレスバーのアニメーション (これは表示されたタイミングで動かしたいので別途)
+            const progressBarObserverCallback = (entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.querySelector('.animate-growProgressBar')?.classList.add('start-animation');
+                        // styleでアニメーション開始するように変更も可
+                        observer.unobserve(entry.target);
+                    }
+                });
+            };
+            const progressBarObserver = new IntersectionObserver(progressBarObserverCallback, { threshold: 0.5 }); // 50%見えたら
+            const valueItems = document.querySelectorAll('.value-item');
+            valueItems.forEach(item => progressBarObserver.observe(item));
+
+
+            // シェアボタン機能
+            const shareButton = document.getElementById('shareButton');
+            const shareFeedback = document.getElementById('shareFeedback');
+            if (shareButton) {
+                shareButton.addEventListener('click', async () => {
+                    const shareData = {
+                        title: '私の価値観診断結果：「自己成長と自己理解」タイプでした！',
+                        text: 'It\'s Me 価値観診断の結果、私は「ヒョウ：自己成長と自己理解」タイプでした🐆✨ あなたも自分の価値観をチェックしてみませんか？ #価値観診断 #自己分析',
+                        url: window.location.href
+                    };
+                    try {
+                        if (navigator.share) {
+                            await navigator.share(shareData);
+                            console.log('共有成功');
+                            shareFeedback.textContent = '共有しました！';
+                        } else {
+                            // フォールバック: クリップボードにコピー
+                            const fallbackText = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
+                            await navigator.clipboard.writeText(fallbackText);
+                            console.log('クリップボードにコピー成功');
+                            shareFeedback.textContent = '結果をクリップボードにコピーしました！';
+                        }
+                    } catch (error) {
+                        console.error('共有またはコピー失敗:', error);
+                        shareFeedback.textContent = '共有に失敗しました…';
+                    }
+                    // フィードバックメッセージを数秒後に消す
+                    setTimeout(() => { shareFeedback.textContent = ''; }, 3000);
+                });
+            }
+
+            // 「もっと詳しく知る」ボタン機能
+            const moreInfoButton = document.getElementById('moreInfoButton');
+            const moreInfoSection = document.getElementById('moreInfoSection');
+            if (moreInfoButton && moreInfoSection) {
+                moreInfoButton.addEventListener('click', () => {
+                    if (moreInfoSection.style.display === 'none') {
+                        moreInfoSection.style.display = 'block';
+                        // 少し遅延させてからフェードイン開始
+                        requestAnimationFrame(() => {
+                            requestAnimationFrame(() => { // 2回RAFを挟むとより確実
+                                moreInfoSection.style.opacity = '1';
+                                moreInfoSection.style.transform = 'translateY(0)';
+                            });
+                        });
+                        // ボタンのテキスト変更 (任意)
+                        moreInfoButton.innerHTML = `
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+              </svg>
+              閉じる
+            `;
+                        // セクションまでスクロール
+                        moreInfoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                    } else {
+                        moreInfoSection.style.opacity = '0';
+                        moreInfoSection.style.transform = 'translateY(20px)';
+                        // アニメーションが終わってから非表示に
+                        setTimeout(() => {
+                            moreInfoSection.style.display = 'none';
+                        }, 500); // transition durationと合わせる
+                        // ボタンのテキストを元に戻す (任意)
+                        moreInfoButton.innerHTML = `
+              さらに詳しく知る
+            `;
+                    }
+                });
+            }
+
+            // カードホバーエフェクト (CSSで実装したので不要だが、参考として残す)
+            /*
+            const cards = document.querySelectorAll('.content-card');
+            cards.forEach(card => {
+              card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-5px) scale(1.01)';
+                card.style.boxShadow = '0 12px 40px rgba(100, 140, 200, 0.2)';
+              });
+              card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+                card.style.boxShadow = '0 8px 32px rgba(100, 140, 200, 0.15)';
+              });
+            });
+            */
+        });
+    </script>
+</body>
+
+</html>
