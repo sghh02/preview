@@ -61,11 +61,11 @@
         /* 動物アイコン画像のサイズを拡大 */
         .flex-shrink-0.relative.group.w-36.h-36,
         .sm\:w-40.sm\:h-40 {
-            width: 7rem;
-            /* 約112px */
-            height: 7rem;
-            /* 約112px */
-            margin: 0.5rem auto 1.25rem auto;
+            width: 12rem;
+            /* 約160px (以前は7rem) */
+            height: 12rem;
+            /* 約160px (以前は7rem) */
+            margin: 2.5rem auto 2.5rem auto;
         }
 
         /* 画像自体のスタイル調整 */
@@ -79,15 +79,38 @@
 
         /* オプション: ホバー時に少し拡大するエフェクト */
         .w-full.h-full.object-contain.rounded-lg:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
+            /* ホバー時の拡大を少し大きく */
+            transition: transform 0.4s ease;
+            /* アニメーション時間を少し長く */
         }
+
 
         /* 背景グラデーションのサイズ調整（画像サイズに合わせる） */
         .absolute.inset-0.bg-gradient-to-br {
-            transform: scale(1.15);
-            /* 背景をやや大きく */
-            filter: blur(12px);
-            /* ぼかしを少し強く */
+            background: linear-gradient(to bottom right, #e0d0ff, #663399);
+            transform: scale(1.4);
+            filter: blur(20px);
+            opacity: 0.7;
+        }
+
+
+        /* あなたのIt's Meタイプはの文字色を黒に変更 */
+        .text-base.text-center.text-neutral-600.mb-1 {
+            color: #000000;
+            /* 黒色に変更 */
+        }
+
+        /* ヒョウの文字色を#663399（紫色）に変更 */
+        .text-2xl.text-center.font-bold.text-accent-gold.mb-2 {
+            color: #663399;
+            /* 紫色に変更 */
+        }
+
+        /* 自己成長と自己理解の文字色を#663399（紫色）に変更 */
+        .text-3xl.sm\:text-4xl.font-bold.text-primary-600.mb-6.leading-tight {
+            color: #663399;
+            /* 紫色に変更 */
         }
 
         .flex-shrink-0.relative.group img {
@@ -278,7 +301,7 @@
         }
 
         .advice-item:nth-child(1)::before {
-            background-color: rgb(59, 130, 246);
+            background-color: rgb(236, 72, 153);
         }
 
         .advice-item:nth-child(2)::before {
@@ -290,11 +313,11 @@
         }
 
         .advice-item:nth-child(4)::before {
-            background-color: rgb(236, 72, 153);
+            background-color: rgb(59, 130, 246);
         }
 
         .advice-item:nth-child(1) {
-            border-color: rgba(59, 130, 246, 0.7);
+            border-color: rgba(236, 72, 153, 0.7);
         }
 
         .advice-item:nth-child(2) {
@@ -306,7 +329,7 @@
         }
 
         .advice-item:nth-child(4) {
-            border-color: rgba(236, 72, 153, 0.7);
+            border-color: rgba(59, 130, 246, 0.7);
         }
 
         /* アドバイス項目のテキスト・アイコン */
@@ -493,6 +516,26 @@
 
         .delay-700 {
             animation-delay: 0.35s;
+        }
+
+        /* ホームに進むボタンのスタイル */
+        #homeButton {
+            background: linear-gradient(to right, #663399, #4834d4);
+            min-height: 48px;
+            width: 100%;
+            max-width: 280px;
+            box-shadow: 0 4px 15px rgba(102, 51, 153, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        #homeButton:hover {
+            box-shadow: 0 6px 20px rgba(102, 51, 153, 0.4);
+            transform: translateY(-2px);
+        }
+
+        #homeButton:active {
+            transform: scale(0.97);
+            box-shadow: 0 2px 10px rgba(102, 51, 153, 0.2);
         }
     </style>
     <script>
@@ -882,7 +925,7 @@
 
                     <div class="advice-item">
                         <h4 class="flex items-center text-lg font-semibold text-neutral-800 mb-3 pl-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-rose-500 flex-shrink-0"
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500 flex-shrink-0"
                                 viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd"
                                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.414-1.414L11 10.586V6z"
@@ -894,7 +937,7 @@
                             <!-- 読書 -->
                             <li class="text-sm text-neutral-600 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path fill-rule="evenodd"
                                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -906,7 +949,7 @@
                             <!-- オンライン学習 -->
                             <li class="text-sm text-neutral-600 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path fill-rule="evenodd"
                                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -918,7 +961,7 @@
                             <!-- 博物館・美術館巡り -->
                             <li class="text-sm text-neutral-600 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path fill-rule="evenodd"
                                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -930,7 +973,7 @@
                             <!-- 旅行 (特に知的好奇心を刺激する場所) -->
                             <li class="text-sm text-neutral-600 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path fill-rule="evenodd"
                                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -942,7 +985,7 @@
                             <!-- ジャーナリング・内省 -->
                             <li class="text-sm text-neutral-600 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path fill-rule="evenodd"
                                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -954,7 +997,7 @@
                             <!-- ワークショップ・セミナー参加 -->
                             <li class="text-sm text-neutral-600 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path fill-rule="evenodd"
                                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -966,7 +1009,7 @@
                             <!-- 瞑想・マインドフルネス実践 -->
                             <li class="text-sm text-neutral-600 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path fill-rule="evenodd"
                                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -978,7 +1021,7 @@
                             <!-- 新しい趣味の探求 -->
                             <li class="text-sm text-neutral-600 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path fill-rule="evenodd"
                                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -990,7 +1033,7 @@
                             <!-- ドキュメンタリー鑑賞 -->
                             <li class="text-sm text-neutral-600 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path fill-rule="evenodd"
                                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -1002,7 +1045,7 @@
                             <!-- ボードゲーム・パズル -->
                             <li class="text-sm text-neutral-600 flex items-center">
                                 <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-rose-400 flex-shrink-0" viewBox="0 0 20 20"
+                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
                                     fill="currentColor">
                                     <path fill-rule="evenodd"
                                         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -1135,6 +1178,18 @@
                         価値観アドバイザーと話す
                     </button>
                 </div>
+            </section>
+
+            <section class="text-center mt-12 mb-8 animate-fadeInUp">
+                <a href="index.html" id="homeButton"
+                    class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-3 px-8 rounded-full shadow-button hover:shadow-button-hover active:scale-[0.97] transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M3 12l2-2m0 0l7-7 7 7m-14 0l2 2m0 0l7 7 7-7m-14 0l2-2" />
+                    </svg>
+                    ホームに進む
+                </a>
             </section>
 
         </main>
