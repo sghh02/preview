@@ -4,1606 +4,1411 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>価値観診断結果 - It's Me</title>
-    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <meta name="description" content="あなたの価値観を診断し、自己理解を深めるアプリ。自分の価値観タイプを発見し、その特徴や活かし方を学びましょう。">
+    <title>価値観診断アプリ - ホーム画面</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=Material+Icons+Round&family=Material+Icons+Outlined&display=swap"
         rel="stylesheet">
     <style>
-        /* モバイル専用表示のためのCSS */
+        /* リセットとベース */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            /* メインカラーパレット */
+            --primary: #4f46e5;
+            --primary-light: #818cf8;
+            --primary-dark: #3730a3;
+            --secondary: #8b5cf6;
+            --accent: #ec4899;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --neutral-50: #f8fafc;
+            --neutral-100: #f1f5f9;
+            --neutral-200: #e2e8f0;
+            --neutral-300: #cbd5e1;
+            --neutral-400: #94a3b8;
+            --neutral-500: #64748b;
+            --neutral-600: #475569;
+            --neutral-700: #334155;
+            --neutral-800: #1e293b;
+            --neutral-900: #0f172a;
+
+            /* タイプ別カラー */
+            --type-1-color: #6366f1;
+            --type-2-color: #8b5cf6;
+            --type-3-color: #ec4899;
+            --type-4-color: #f59e0b;
+            --type-5-color: #10b981;
+            --type-6-color: #0ea5e9;
+
+            /* システム設定 */
+            --font-sans: 'Inter', 'Noto Sans JP', sans-serif;
+            --card-radius: 1.25rem;
+            --btn-radius: 1rem;
+
+            /* シャドウ */
+            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+
+            /* グラスモーフィズム設定 */
+            --glass-bg: rgba(255, 255, 255, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.8);
+            --glass-blur: 12px;
+            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+        }
+
+        /* ベーススタイル */
         body {
-            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            font-family: var(--font-sans);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            font-size: 14px;
+            font-size: 15px;
             line-height: 1.5;
-            color: #1e293b;
+            color: var(--neutral-800);
             margin: 0;
             padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow-x: hidden;
+            position: relative;
+            background-color: #f8fafc;
         }
 
-        /* カスタムグラデーション背景 */
+        /* グラデーション背景 */
         .gradient-background {
-            /* 既存のグラデーション設定を上書き */
-            background: linear-gradient(160deg, #D0FFF0 0%, #CEECFF 50%, #D3DDFF 100%);
+            background-image: linear-gradient(135deg, #d0fff0 0%, #ceecff 50%, #d3ddff 100%);
             background-attachment: fixed;
-            /* 背景を固定 */
             min-height: 100vh;
             width: 100%;
-            height: 100%;
             margin: 0;
             padding: 0;
-        }
-
-        /* コンテナ */
-        .max-w-2xl {
-            max-width: 100%;
-            padding: 1.5rem 1rem 3rem 1rem;
-            margin: 0 auto;
-        }
-
-        /* カードスタイル */
-        .content-card {
-            background-color: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 1rem;
-            box-shadow: 0 8px 32px rgba(100, 140, 200, 0.15);
-            padding: 1.25rem;
-            margin-bottom: 1.25rem;
-            overflow: hidden;
-        }
-
-        /* ヘッダー部分 */
-        .flex-col.md\:flex-row {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 0.5rem;
-            padding: 0.5rem 0.25rem;
-        }
-
-        /* 動物アイコン画像のサイズを拡大 */
-        .flex-shrink-0.relative.group.w-36.h-36 {
-            width: 10rem;
-            height: 10rem;
-            margin: 1rem auto;
             position: relative;
+            overflow-x: hidden;
         }
 
-        /* 画像自体のスタイル調整 */
-        .w-full.h-full.object-contain.rounded-lg {
-            filter: drop-shadow(0 5px 10px rgba(102, 51, 153, 0.25));
-        }
-
-        /* オプション: ホバー時に少し拡大するエフェクト */
-        .w-full.h-full.object-contain.rounded-lg:hover {
-            transform: scale(1.08);
-            /* ホバー時の拡大を少し大きく */
-            transition: transform 0.4s ease;
-            /* アニメーション時間を少し長く */
-        }
-
-
-        /* 背景グラデーションのサイズ調整（画像サイズに合わせる） */
-        .absolute.inset-0.bg-gradient-to-br.from-amber-100.to-orange-200 {
-            background: linear-gradient(to bottom right, #e0d0ff, #663399);
-            transform: scale(1.2);
-            filter: blur(15px);
-            opacity: 0.7;
+        /* 背景装飾要素 */
+        .bg-decoration {
+            position: fixed;
             border-radius: 50%;
-            animation: pulse-gentle 5s infinite alternate;
-        }
-
-
-        /* あなたのIt's Meタイプはの文字色を黒に変更 */
-        .text-base.text-center.text-neutral-600.mb-1 {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: #475569;
-            letter-spacing: 0.02em;
-            margin-bottom: 0.375rem;
-        }
-
-        /* ヒョウの文字色を#663399（紫色）に変更 */
-        .text-2xl.text-center.font-bold.text-accent-gold.mb-2 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #663399, #9333EA);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1.25rem;
-            letter-spacing: 0.02em;
-            text-shadow: 0 2px 4px rgba(102, 51, 153, 0.1);
-        }
-
-        /* 自己成長と自己理解の文字色を#663399（紫色）に変更 */
-        .text-3xl.sm\:text-4xl.font-bold.text-primary-600.mb-6.leading-tight {
-            font-size: 1.75rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #663399, #9333EA);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 1.25rem;
-            letter-spacing: 0.01em;
-            line-height: 1.2;
-        }
-
-        .flex-shrink-0.relative.group img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            position: relative;
-            z-index: 10;
-        }
-
-        /* テキストスタイル */
-        .flex-1.text-center.md\:text-left {
-            max-width: 320px;
-            margin: 0 auto;
-            padding: 0 0.5rem;
-        }
-
-        .text-base.text-neutral-600 {
-            font-size: 0.875rem;
-            color: #64748b;
-            margin: 0.25rem 0;
-        }
-
-        .text-2xl.font-bold.text-accent-gold {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #d4af37;
-            margin: 0.25rem 0;
-        }
-
-        .text-xl.font-semibold.text-neutral-800.mb-3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #334155;
-            margin-bottom: 0.375rem;
-        }
-
-        .text-3xl.sm\:text-4xl.font-bold.text-primary-600 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #2563eb;
-            margin: 0.5rem 0 1rem 0;
-        }
-
-        /* シェアボタン */
-        #shareButton {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            padding: 0.625rem 1.25rem;
-            border-radius: 9999px;
-            background-color: white;
-            border: 1px solid #e2e8f0;
-            color: #64748b;
-            font-size: 0.875rem;
-            font-weight: 600;
-            margin-top: 1rem;
-            min-height: 44px;
-            transition: all 0.3s ease;
-        }
-
-        #shareButton:active {
-            transform: scale(0.98);
-        }
-
-        #shareFeedback {
-            height: 1rem;
-            min-height: 1rem;
-            font-size: 0.75rem;
-            color: #10b981;
-            margin-top: 0.5rem;
-        }
-
-        /* 価値観TOP5 */
-        .text-xl.font-bold.text-neutral-800 {
-            font-size: 1.125rem;
-            font-weight: 700;
-            color: #1e293b;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .space-y-6 {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        /* 価値観項目 */
-        .value-item {
-            margin-bottom: 0.5rem;
-        }
-
-        .value-item .flex {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .flex-shrink-0.w-8.h-8.rounded-full {
-            width: 2rem;
-            height: 2rem;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 700;
-            font-size: 0.875rem;
-            flex-shrink: 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        .flex-1 {
-            flex: 1;
-        }
-
-        .flex.justify-between.items-baseline {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 0.375rem;
-        }
-
-        .text-base.font-medium.text-neutral-700 {
-            font-size: 1rem;
-            font-weight: 500;
-            color: #374151;
-        }
-
-        .text-sm.font-semibold {
-            font-size: 0.875rem;
-            font-weight: 600;
-        }
-
-        /* プログレスバー */
-        .w-full.bg-neutral-200.rounded-full {
-            width: 100%;
-            height: 0.5rem;
-            background-color: #e5e7eb;
-            border-radius: 9999px;
-            overflow: hidden;
-        }
-
-        .h-full.rounded-full {
-            height: 100%;
-            border-radius: 9999px;
-        }
-
-        /* アドバイスセクション */
-        .text-xl.font-bold.text-neutral-800.text-center {
-            font-size: 1.125rem;
-            font-weight: 700;
-            color: #1e293b;
-            text-align: center;
-            margin-bottom: 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-
-        .space-y-8 {
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-        }
-
-        /* 以下は指定されたアドバイスカードのスタイルをそのまま維持 */
-        .advice-item {
-            position: relative;
-            padding: 1.25rem;
-            background-color: transparent;
-            border-radius: 0.75rem;
-            border: 1px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        .advice-item::before {
-            content: '';
-            position: absolute;
-            top: 1rem;
-            left: 0.75rem;
-            width: 0.375rem;
-            height: 2rem;
-            border-radius: 9999px;
-            opacity: 0.8;
-            z-index: 1;
-            display: block;
-        }
-
-        .advice-item:nth-child(1)::before {
-            background-color: rgb(236, 72, 153);
-        }
-
-        .advice-item:nth-child(2)::before {
-            background-color: rgb(20, 184, 166);
-        }
-
-        .advice-item:nth-child(3)::before {
-            background-color: rgb(245, 158, 11);
-        }
-
-        .advice-item:nth-child(4)::before {
-            background-color: rgb(59, 130, 246);
-        }
-
-        .advice-item:nth-child(1) {
-            border-color: rgba(236, 72, 153, 0.7);
-        }
-
-        .advice-item:nth-child(2) {
-            border-color: rgba(20, 184, 166, 0.7);
-        }
-
-        .advice-item:nth-child(3) {
-            border-color: rgba(245, 158, 11, 0.7);
-        }
-
-        .advice-item:nth-child(4) {
-            border-color: rgba(59, 130, 246, 0.7);
-        }
-
-        /* アドバイス項目のテキスト・アイコン */
-        .flex.items-center.text-lg.font-semibold.text-neutral-800 {
-            display: flex;
-            align-items: center;
-            font-size: 1rem;
-            font-weight: 600;
-            color: #1e293b;
-            margin-bottom: 0.5rem;
-            padding-left: 0.5rem;
-        }
-
-        .text-sm.text-neutral-600.leading-relaxed {
-            font-size: 0.813rem;
-            color: #64748b;
-            line-height: 1.5;
-            padding-left: 0.5rem;
-        }
-
-        /* キャリアと余暇リストをグリッドレイアウトに変更 */
-        .grid.grid-cols-2.sm\:grid-cols-3 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem;
-            padding-left: 0.5rem;
-            margin-bottom: 0.5rem;
-            overflow-x: visible;
-        }
-
-        /* リストアイテムのスタイル調整 */
-        .grid.grid-cols-2.sm\:grid-cols-3 li {
-            white-space: normal;
-            margin-right: 0;
-            padding: 0.5rem;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 0.75rem;
-            font-size: 0.75rem;
-            color: #475569;
-            display: flex;
-            align-items: flex-start;
-            line-height: 1.3;
-        }
-
-        /* アイコンの位置調整 */
-        .grid.grid-cols-2.sm\:grid-cols-3 li svg {
-            width: 0.75rem;
-            height: 0.75rem;
-            margin-right: 0.375rem;
-            margin-top: 0.125rem;
-            flex-shrink: 0;
-        }
-
-        /* 長いテキストのアイテムが多いカテゴリはワードラップ可能に */
-        .advice-item:nth-child(3) .grid.grid-cols-2.sm\:grid-cols-3 li,
-        .advice-item:nth-child(4) .grid.grid-cols-2.sm\:grid-cols-3 li {
-            word-break: break-word;
-            hyphens: auto;
-        }
-
-        /* サブタイトルの調整 */
-        .text-sm.font-medium.text-neutral-700.mb-2.pl-5 {
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 0.75rem;
-            margin-top: 0.5rem;
-        }
-
-        /* 「さらに詳しく知る」ボタン */
-        .text-center.mt-10 {
-            text-align: center;
-            margin-top: 1.5rem;
-        }
-
-        #moreInfoButton {
-            background: linear-gradient(to right, #2563eb, #4f46e5);
-            color: white;
-            font-weight: 700;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.25);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto;
-            min-height: 44px;
-            width: 100%;
-            max-width: 280px;
-            transition: all 0.3s ease;
-        }
-
-        #moreInfoButton:active {
-            transform: scale(0.98);
-            box-shadow: 0 2px 6px rgba(59, 130, 246, 0.2);
-        }
-
-        /* 詳細情報セクション */
-        #moreInfoSection {
-            display: none;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-        }
-
-        .grid.grid-cols-1.md\:grid-cols-2 {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .bg-primary-100.p-4.rounded-lg,
-        .bg-amber-50.p-4.rounded-lg {
-            padding: 1rem;
-            border-radius: 0.5rem;
-        }
-
-
-
-        /* フッター */
-        .mt-16.text-center.text-xs.text-neutral-500 {
-            margin-top: 2rem;
-            text-align: center;
-            font-size: 0.75rem;
-            color: #6b7280;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(226, 232, 240, 0.5);
-        }
-
-        /* アニメーション */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes growProgressBar {
-            from {
-                transform: scaleX(0);
-            }
-
-            to {
-                transform: scaleX(1);
-            }
-        }
-
-        @keyframes pulse-gentle {
-            0% {
-                transform: scale(1.2);
-                opacity: 0.5;
-            }
-
-            100% {
-                transform: scale(1.3);
-                opacity: 0.7;
-            }
-        }
-
-        .animate-fadeInUp {
-            animation: fadeInUp 0.5s ease-out forwards;
-        }
-
-        .animate-growProgressBar {
-            transform-origin: left;
-            animation: growProgressBar 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
-        }
-
-        /* アニメーション遅延調整（モバイルでは短く） */
-        .delay-100 {
-            animation-delay: 0.05s;
-        }
-
-        .delay-200 {
-            animation-delay: 0.1s;
-        }
-
-        .delay-300 {
-            animation-delay: 0.15s;
-        }
-
-        .delay-400 {
-            animation-delay: 0.2s;
-        }
-
-        .delay-500 {
-            animation-delay: 0.25s;
-        }
-
-        .delay-600 {
-            animation-delay: 0.3s;
-        }
-
-        .delay-700 {
-            animation-delay: 0.35s;
-        }
-
-        /* ホームに進むボタンのスタイル */
-        #homeButton {
-            background: linear-gradient(to right, #663399, #4834d4);
-            min-height: 48px;
-            width: 100%;
-            max-width: 280px;
-            box-shadow: 0 4px 15px rgba(102, 51, 153, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        #homeButton:hover {
-            box-shadow: 0 6px 20px rgba(102, 51, 153, 0.4);
-            transform: translateY(-2px);
-        }
-
-        #homeButton:active {
-            transform: scale(0.97);
-            box-shadow: 0 2px 10px rgba(102, 51, 153, 0.2);
-        }
-
-        /* ヘッダーコンテナ全体の改善 */
-        .p-6.sm\:p-8.animate-fadeInUp.delay-100 {
-            padding: 1.5rem 1.25rem 2rem;
-            position: relative;
-            overflow: hidden;
-            border-radius: 1.25rem;
-            background-color: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            box-shadow: 0 10px 30px rgba(102, 51, 153, 0.12);
-        }
-
-        /* 装飾要素の追加 */
-        .p-6.sm\:p-8.animate-fadeInUp.delay-100::before {
-            content: '';
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            width: 100px;
-            height: 100px;
-            background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, rgba(139, 92, 246, 0) 70%);
-            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.5;
             z-index: 0;
         }
 
-        /* テキスト部分のコンテナ調整 */
-        .flex-1.text-center.md\:text-left {
-            position: relative;
-            z-index: 2;
+        .bg-decoration-1 {
+            width: 400px;
+            height: 400px;
+            background-color: rgba(139, 92, 246, 0.2);
+            top: -150px;
+            right: -150px;
+        }
+
+        .bg-decoration-2 {
+            width: 350px;
+            height: 350px;
+            background-color: rgba(14, 165, 233, 0.15);
+            bottom: -100px;
+            left: -100px;
+        }
+
+        .bg-decoration-3 {
+            width: 250px;
+            height: 250px;
+            background-color: rgba(236, 72, 153, 0.1);
+            top: 40%;
+            right: 25%;
+        }
+
+        /* 微細な模様パターン */
+        .texture-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%233730a3' fill-opacity='0.02' fill-rule='evenodd'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* レイアウトコンテナ */
+        .app-container {
+            max-width: 480px;
+            padding: 1.5rem 1.25rem 3rem;
+            margin: 0 auto;
             display: flex;
             flex-direction: column;
-            align-items: center;
-            max-width: 340px;
-            margin: 0 auto;
-        }
-
-        /* タイプラベルの洗練 */
-        .text-base.text-center.text-neutral-600.mb-1 {
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.04em;
-            text-transform: uppercase;
-            color: rgba(102, 51, 153, 0.8);
-            margin-bottom: 0.3rem;
             position: relative;
-            display: inline-block;
+            z-index: 1;
+            min-height: calc(100vh - 4.5rem);
         }
 
-        /* タイプラベルに装飾線を追加 */
-        .text-base.text-center.text-neutral-600.mb-1::after {
+        /* グラスカードのベース */
+        .glass-card {
+            background-color: var(--glass-bg);
+            backdrop-filter: blur(var(--glass-blur));
+            -webkit-backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid var(--glass-border);
+            border-radius: var(--card-radius);
+            box-shadow: var(--glass-shadow),
+                inset 0 1px 1px rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.25rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .glass-card::before {
             content: '';
             position: absolute;
-            bottom: -6px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 40px;
-            height: 2px;
-            background: linear-gradient(90deg, #663399, #9333EA);
-            border-radius: 2px;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0.5) 0%,
+                    rgba(255, 255, 255, 0.1) 100%);
+            border-radius: var(--card-radius) var(--card-radius) 0 0;
+            z-index: 0;
         }
 
-        /* 動物タイプ名のスタイル強化 */
-        .text-2xl.text-center.font-bold.text-accent-gold.mb-2 {
-            font-size: 2rem;
-            font-weight: 800;
-            background: linear-gradient(90deg, #663399, #9333EA);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin: 0.7rem 0 1rem;
-            letter-spacing: 0.02em;
-            text-shadow: 0 2px 4px rgba(102, 51, 153, 0.1);
-            position: relative;
-        }
-
-        /* 価値観ラベルの調整 */
-        .text-xl.font-semibold.text-neutral-800.mb-3 {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #4b5563;
-            margin: 0.75rem 0 0.3rem;
-            letter-spacing: 0.01em;
-        }
-
-        /* 価値観タイトルの強調 */
-        .text-3xl.sm\:text-4xl.font-bold.text-primary-600.mb-6.leading-tight {
-            font-size: 1.6rem;
-            line-height: 1.3;
-            font-weight: 700;
-            background: linear-gradient(90deg, #663399, #9333EA);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        /* ヘッダーエリア */
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             margin-bottom: 1.5rem;
-            letter-spacing: 0.01em;
+            padding: 0.5rem 0.25rem;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+        }
+
+        .app-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            color: white;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
+        }
+
+        .action-area {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .header-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            background-color: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            color: var(--primary);
+            box-shadow:
+                0 4px 10px rgba(79, 70, 229, 0.12),
+                inset 0 1px 1px rgba(255, 255, 255, 0.7);
+            cursor: pointer;
+        }
+
+        .header-button:hover {
+            background-color: rgba(255, 255, 255, 0.5);
+            border-color: rgba(79, 70, 229, 0.5);
+        }
+
+        .header-button:focus {
+            background-color: rgba(255, 255, 255, 0.45);
+            outline: 2px solid rgba(79, 70, 229, 0.7);
+            outline-offset: 2px;
+        }
+
+        .header-button:active {
+            background-color: rgba(255, 255, 255, 0.3);
+            box-shadow: 0 2px 5px rgba(79, 70, 229, 0.1);
+        }
+
+        /* プロファイルカード */
+        .profile-card {
+            padding: 1.5rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
             position: relative;
-            padding: 0 0.5rem;
+            overflow: hidden;
+            cursor: pointer;
         }
 
-        /* 動物アイコンコンテナの改良 */
-        .flex-shrink-0.relative.group.w-36.h-36 {
-            width: 11rem;
-            height: 11rem;
-            margin: 1.5rem auto;
+        .profile-card:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .profile-card:focus {
+            background-color: rgba(255, 255, 255, 0.55);
+            outline: 2px solid rgba(102, 51, 153, 0.7);
+            outline-offset: 3px;
+            box-shadow: 0 0 0 4px rgba(102, 51, 153, 0.2);
+        }
+
+        .profile-card:active {
+            background-color: rgba(255, 255, 255, 0.35);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .dots-top-right {
+            top: 15px;
+            right: 15px;
+            transform: rotate(15deg);
+        }
+
+        .dots-bottom-left {
+            bottom: 15px;
+            left: 15px;
+            transform: rotate(-15deg);
+        }
+
+        /* シェアボタン */
+        .share-button.top-right {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            z-index: 5;
+        }
+
+        /* 動物アイコン */
+        .animal-icon {
+            width: 80px;
+            height: 80px;
             position: relative;
-            transform: perspective(800px) rotateY(5deg);
-            transition: transform 0.5s ease;
+            flex-shrink: 0;
+            z-index: 1;
         }
 
-        .flex-shrink-0.relative.group.w-36.h-36:hover {
-            transform: perspective(800px) rotateY(0deg);
-        }
-
-        /* 背景グラデーションの強化 */
-        .absolute.inset-0.bg-gradient-to-br.from-amber-100.to-orange-200 {
+        .animal-bg {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
             background: radial-gradient(ellipse at center,
                     rgba(220, 180, 255, 0.7) 0%,
                     rgba(180, 130, 240, 0.3) 50%,
                     rgba(102, 51, 153, 0.1) 100%);
             filter: blur(15px);
             opacity: 0.8;
-            border-radius: 50%;
             transform: scale(1.2);
-            animation: gentle-pulse 8s ease-in-out infinite alternate;
         }
 
-        /* 画像の3D効果 */
-        .w-full.h-full.object-contain.rounded-lg {
+        .animal-image {
+            position: relative;
+            z-index: 10;
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
             filter: drop-shadow(0 8px 15px rgba(102, 51, 153, 0.3));
-            transition: all 0.4s ease;
-            transform: translateY(0);
         }
 
-        .w-full.h-full.object-contain.rounded-lg:hover {
-            filter: drop-shadow(0 12px 20px rgba(102, 51, 153, 0.4));
-            transform: translateY(-5px) scale(1.05);
+        /* ユーザー情報 */
+        .user-info {
+            margin-left: 1.25rem;
+            flex-grow: 1;
+            position: relative;
+            z-index: 1;
         }
 
-        @keyframes gentle-pulse {
-            0% {
-                opacity: 0.7;
-                transform: scale(1.2);
-            }
-
-            100% {
-                opacity: 0.9;
-                transform: scale(1.3);
-            }
+        .greeting {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--neutral-500);
+            letter-spacing: 0.02em;
+            margin-bottom: 0.25rem;
+            position: relative;
+            display: inline-block;
         }
 
-        /* シェアボタンのデザイン改良 */
-        #shareButton {
-            background: white;
-            color: #4b5563;
-            font-weight: 600;
-            padding: 0.75rem 1.5rem;
-            border-radius: 9999px;
-            border: 1px solid rgba(226, 232, 240, 0.8);
-            box-shadow: 0 4px 12px rgba(102, 51, 153, 0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .user-type {
+            font-size: 1.4rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #663399, #9333EA);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.35rem;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 4px rgba(102, 51, 153, 0.1);
+            position: relative;
+        }
+
+        .value-type {
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--neutral-600);
+            position: relative;
+            padding-left: 0.5rem;
+        }
+
+        /* 改良されたシェアボタン */
+        .share-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to bottom, rgba(79, 70, 229, 0.15), rgba(59, 130, 246, 0.1));
+            color: var(--primary);
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            border: 1px solid rgba(79, 70, 229, 0.2);
+            box-shadow:
+                0 4px 10px rgba(79, 70, 229, 0.12),
+                inset 0 1px 1px rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
             position: relative;
             overflow: hidden;
-            z-index: 1;
-            margin-top: 1.25rem;
+            cursor: pointer;
         }
 
-        /* シェアボタンの背景エフェクト */
-        #shareButton::before {
+        .share-button:hover {
+            background: linear-gradient(to bottom, rgba(79, 70, 229, 0.25), rgba(59, 130, 246, 0.15));
+            border-color: rgba(79, 70, 229, 0.4);
+        }
+
+        .share-button:focus {
+            background: linear-gradient(to bottom, rgba(79, 70, 229, 0.2), rgba(59, 130, 246, 0.1));
+            outline: 2px solid rgba(79, 70, 229, 0.7);
+            outline-offset: 2px;
+        }
+
+        .share-button:active {
+            background: linear-gradient(to bottom, rgba(79, 70, 229, 0.1), rgba(59, 130, 246, 0.05));
+            box-shadow: 0 2px 5px rgba(79, 70, 229, 0.1);
+        }
+
+        .share-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0.7) 0%,
+                    rgba(255, 255, 255, 0) 100%);
+            border-radius: 12px 12px 24px 24px / 12px 12px 12px 12px;
+        }
+
+        /* セクションタイトル */
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--neutral-800);
+            margin: 1.75rem 0 1rem;
+            padding-left: 0.25rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .section-title .material-icons-round {
+            margin-right: 0.5rem;
+            background: linear-gradient(to bottom right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        /* 機能カードグリッド */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.25rem;
+            margin-top: 0.25rem;
+        }
+
+        /* 機能カード */
+        .feature-card {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .feature-card:focus {
+            background-color: rgba(255, 255, 255, 0.55);
+            outline: 2px solid rgba(79, 70, 229, 0.7);
+            outline-offset: 3px;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2);
+        }
+
+        .feature-card:active {
+            background-color: rgba(255, 255, 255, 0.35);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 68px;
+            height: 68px;
+            border-radius: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            margin-bottom: 1rem;
+            position: relative;
+            box-shadow:
+                0 8px 16px rgba(0, 0, 0, 0.1),
+                inset 0 1px 2px rgba(255, 255, 255, 0.4);
+        }
+
+        /* アイコンのハイライト効果 */
+        .feature-icon::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg,
-                    rgba(219, 234, 254, 0.3),
-                    rgba(224, 231, 255, 0.3));
-            z-index: -1;
-            transform: translateX(-100%);
-            transition: transform 0.4s ease;
+            height: 50%;
+            background: linear-gradient(to bottom,
+                    rgba(255, 255, 255, 0.5) 0%,
+                    rgba(255, 255, 255, 0) 100%);
+            border-radius: 24px 24px 50px 50px / 24px 24px 25px 25px;
+            opacity: 0.6;
         }
 
-        #shareButton:hover::before {
-            transform: translateX(0);
+        .feature-content {
+            position: relative;
+            z-index: 1;
         }
 
-        #shareButton:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(102, 51, 153, 0.15);
-            border-color: rgba(199, 210, 254, 0.8);
-            color: #6b21a8;
+        .feature-content h3 {
+            font-size: 1.05rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--neutral-800);
+            letter-spacing: -0.01em;
+            position: relative;
+            display: inline-block;
         }
 
-        #shareButton:active {
-            transform: translateY(1px);
-            box-shadow: 0 2px 8px rgba(102, 51, 153, 0.1);
+        .feature-content p {
+            font-size: 0.875rem;
+            color: var(--neutral-600);
+            min-height: 2.5em;
+            line-height: 1.5;
+            max-width: 200px;
+            margin: 0 auto;
         }
 
-        /* シェアアイコンのアニメーション */
-        #shareButton svg {
-            transition: all 0.3s ease;
+        /* 機能アイコンの背景色 */
+        .icon-stats {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.05) 100%);
+            color: #2563eb;
         }
 
-        #shareButton:hover svg {
-            transform: scale(1.1);
-            stroke: #6b21a8;
+        .icon-advisor {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.05) 100%);
+            color: #059669;
         }
 
-        /* ヘッダーセクション全体のアニメーション調整 */
-        .animate-fadeInUp.delay-100 {
-            animation-duration: 0.8s;
-            animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+        .icon-resources {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.05) 100%);
+            color: #d97706;
         }
 
-        /* モバイル向け最適化 */
-        @media (max-width: 640px) {
-            .p-6.sm\:p-8.animate-fadeInUp.delay-100 {
-                padding: 1.25rem 1rem 1.75rem;
-            }
-
-            .flex-shrink-0.relative.group.w-36.h-36 {
-                width: 9.5rem;
-                height: 9.5rem;
-                margin: 1rem auto 1.25rem;
-            }
-
-            .text-2xl.text-center.font-bold.text-accent-gold.mb-2 {
-                font-size: 1.75rem;
-            }
-
-            .text-3xl.sm\:text-4xl.font-bold.text-primary-600.mb-6.leading-tight {
-                font-size: 1.5rem;
-            }
+        .icon-journal {
+            background: linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(219, 39, 119, 0.05) 100%);
+            color: #db2777;
         }
 
-        /* 装飾パターン要素の追加 */
-        .p-6.sm\:p-8.animate-fadeInUp.delay-100::after {
+        /* Coming Soonカード */
+        .coming-soon-card {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .coming-soon-card:hover {
+            background-color: rgba(255, 255, 255, 0.6);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .coming-soon-card:focus {
+            background-color: rgba(255, 255, 255, 0.55);
+            outline: 2px solid rgba(236, 72, 153, 0.7);
+            outline-offset: 3px;
+            box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.2);
+        }
+
+        .coming-soon-card:active {
+            background-color: rgba(255, 255, 255, 0.35);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon-soon {
+            width: 68px;
+            height: 68px;
+            border-radius: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            margin-bottom: 1rem;
+            position: relative;
+            box-shadow:
+                0 8px 16px rgba(0, 0, 0, 0.1),
+                inset 0 1px 2px rgba(255, 255, 255, 0.4);
+            overflow: hidden;
+        }
+
+        .icon-pulse {
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            background-color: rgba(255, 255, 255, 0.15);
+        }
+
+        /* COMING SOONラベル */
+        .coming-soon-label {
+            background: linear-gradient(to right, rgba(236, 72, 153, 0.9), rgba(139, 92, 246, 0.9));
+            color: white;
+            font-size: 0.6rem;
+            font-weight: 600;
+            padding: 0.15rem 0.5rem;
+            border-radius: 9999px;
+            box-shadow:
+                0 3px 8px rgba(236, 72, 153, 0.2),
+                0 1px 3px rgba(139, 92, 246, 0.15),
+                inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            letter-spacing: 0.02em;
+            display: inline-block;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        /* 診断履歴 - 新しいおしゃれなデザイン */
+        .history-card {
+            padding: 1.75rem 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* カードの装飾要素 */
+        .history-card::after {
             content: '';
             position: absolute;
-            bottom: 20px;
-            left: -15px;
-            width: 60px;
-            height: 60px;
-            background-image: radial-gradient(circle, rgba(139, 92, 246, 0.1) 1px, transparent 1px);
-            background-size: 10px 10px;
-            opacity: 0.5;
-            z-index: 0;
+            top: 15px;
+            right: 15px;
+            width: 80px;
+            height: 80px;
+            background-image: radial-gradient(circle, rgba(79, 70, 229, 0.08) 2px, transparent 2px);
+            background-size: 12px 12px;
+            opacity: 0.4;
             border-radius: 50%;
+            z-index: 0;
+            transform: rotate(15deg);
         }
 
-        /* 強調マーカー */
-        .text-3xl.sm\:text-4xl.font-bold.text-primary-600.mb-6.leading-tight::before {
+        .history-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* 新しい履歴カードスタイル */
+        .history-item {
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .history-content {
+            display: flex;
+            align-items: center;
+            padding: 1.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.45);
+            border-radius: 1.2rem;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            box-shadow: 
+                0 8px 20px rgba(0, 0, 0, 0.06),
+                inset 0 1px 1px rgba(255, 255, 255, 0.8);
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        /* アニメーション効果のために残します */
+        .history-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 12px 28px rgba(0, 0, 0, 0.1),
+                inset 0 1px 1px rgba(255, 255, 255, 0.8);
+        }
+
+        /* タイプに基づく装飾 */
+        .history-content::before {
             content: '';
             position: absolute;
-            bottom: 2px;
             left: 0;
+            top: 0;
             width: 100%;
-            height: 7px;
-            background: linear-gradient(90deg, rgba(139, 92, 246, 0.2), rgba(167, 139, 250, 0.1));
+            height: 100%;
+            background: linear-gradient(135deg, transparent 0%, rgba(255, 255, 255, 0.2) 100%);
             z-index: -1;
-            border-radius: 4px;
+        }
+
+        /* 縁取りの装飾 */
+        .history-content::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 6px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--type-1-color), var(--secondary));
+            z-index: 1;
+        }
+
+        /* 2番目の履歴項目のカラー変更 */
+        .history-item:nth-child(2) .history-content::after {
+            background: linear-gradient(to bottom, var(--type-1-color), var(--secondary));
+        }
+
+        /* 日付バッジ */
+        .history-date-badge {
+            position: absolute;
+            right: 1.25rem;
+            top: -0.75rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.3rem 0.75rem;
+            border-radius: 0.75rem;
+            font-size: 0.7rem;
+            font-weight: 700;
+            box-shadow: 
+                0 4px 10px rgba(79, 70, 229, 0.2),
+                inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            letter-spacing: 0.02em;
+        }
+
+        .history-date-badge .material-icons-round {
+            font-size: 0.9rem;
+        }
+
+        /* 診断回数マーカー */
+        .diagnosis-number {
+            position: relative;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-right: 1.25rem;
+            box-shadow: 
+                0 4px 10px rgba(79, 70, 229, 0.25),
+                inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            flex-shrink: 0;
+            z-index: 2;
+        }
+
+        /* グローエフェクト */
+        .diagnosis-number::before {
+            content: '';
+            position: absolute;
+            inset: -5px;
+            background: radial-gradient(circle, rgba(79, 70, 229, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        /* アイコンとテキスト */
+        .history-icon-wrapper {
+            position: relative;
+            width: 3rem;
+            height: 3rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .history-icon {
+            width: 3rem;
+            height: 3rem;
+            border-radius: 0.8rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(102, 51, 153, 0.15), rgba(139, 92, 246, 0.05));
+            overflow: hidden;
+            box-shadow: 
+                0 4px 12px rgba(102, 51, 153, 0.15),
+                inset 0 1px 1px rgba(255, 255, 255, 0.4);
+            position: relative;
+        }
+
+        .history-icon-image {
+            width: 85%;
+            height: 85%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(102, 51, 153, 0.2));
+            position: relative;
+            z-index: 2;
+        }
+
+        /* インフォメーション部分 */
+        .history-info {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .history-type {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--neutral-800);
+            margin-bottom: 0.25rem;
+            display: inline-block;
+        }
+
+        .history-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            background: linear-gradient(90deg, #663399, #9333EA);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+        }
+
+        /* 比較マーカー */
+        .comparison-marker {
+            display: flex;
+            align-items: center;
+            font-size: 0.7rem;
+            font-weight: 600;
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #059669;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.5rem;
+            margin-left: 0.5rem;
+            box-shadow: 
+                0 2px 5px rgba(16, 185, 129, 0.1),
+                inset 0 1px 1px rgba(255, 255, 255, 0.4);
+        }
+
+        .comparison-marker .material-icons-round {
+            font-size: 0.85rem;
+            margin-right: 0.2rem;
+        }
+
+        /* 空の状態表示 */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.35);
+            border-radius: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            padding: 2.5rem 1.5rem;
+            margin: 0.5rem 0;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+            text-align: center;
+        }
+
+        .empty-icon {
+            width: 3.5rem;
+            height: 3.5rem;
+            background-color: rgba(79, 70, 229, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+
+        .empty-icon .material-icons-outlined {
+            font-size: 1.75rem;
+        }
+
+        .empty-state p {
+            color: var(--neutral-500);
+            margin-bottom: 1.25rem;
+            font-size: 0.95rem;
+        }
+
+        .start-button {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            font-weight: 600;
+            padding: 0.6rem 1.25rem;
+            border-radius: 9999px;
+            border: none;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+            cursor: pointer;
+        }
+
+        .start-button:hover,
+        .start-button:focus {
+            background: linear-gradient(to right, var(--primary-dark), var(--secondary));
+            outline: none;
+            box-shadow:
+                0 6px 15px rgba(79, 70, 229, 0.25),
+                0 0 0 2px rgba(79, 70, 229, 0.3);
+        }
+
+        .start-button:active {
+            background: linear-gradient(to right, #4338ca, #7e22ce);
+            box-shadow: 0 3px 8px rgba(79, 70, 229, 0.15);
+        }
+
+        /* フィードバックトースト */
+        .toast-container {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            pointer-events: none;
+            display: none;
+        }
+
+        .toast-container.show {
+            display: block;
+        }
+
+        .toast {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            background-color: rgba(30, 41, 59, 0.95);
+            color: white;
+            border-radius: 9999px;
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.1),
+                0 5px 10px rgba(0, 0, 0, 0.05);
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .toast-icon {
+            margin-right: 0.5rem;
+            color: #10b981;
+        }
+
+        /* Material Icons スタイル */
+        .material-icons-round,
+        .material-icons-outlined {
+            font-size: 24px;
+            line-height: 1;
+            vertical-align: middle;
+        }
+
+        /* アイコンサイズの調整 */
+        .icon-md {
+            font-size: 24px;
+        }
+
+        .icon-lg {
+            font-size: 28px;
+        }
+
+        .icon-xl {
+            font-size: 32px;
+        }
+
+        /* アクセシビリティ - フォーカス状態の改善 */
+        :focus {
+            outline: 2px solid rgba(79, 70, 229, 0.5);
+            outline-offset: 2px;
+        }
+
+        :focus:not(:focus-visible) {
+            outline: none;
+        }
+
+        :focus-visible {
+            outline: 2px solid rgba(79, 70, 229, 0.5);
+            outline-offset: 2px;
+        }
+
+        /* 見えないが機械的に読み取り可能なテキスト */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* モバイル最適化 */
+        @media (max-width: 380px) {
+            .app-container {
+                padding: 1rem 1rem 2rem;
+            }
+
+            .app-header {
+                margin-bottom: 1rem;
+            }
+
+            .logo-icon {
+                width: 28px;
+                height: 28px;
+                border-radius: 8px;
+            }
+
+            .header-button {
+                width: 34px;
+                height: 34px;
+                border-radius: 10px;
+            }
+
+            .profile-card {
+                padding: 1.25rem 1rem;
+            }
+
+            .animal-icon {
+                width: 70px;
+                height: 70px;
+            }
+
+            .animal-emoji {
+                font-size: 36px;
+            }
+
+            .user-type {
+                font-size: 1.3rem;
+            }
+
+            .user-info {
+                margin-left: 0.75rem;
+            }
+
+            .section-title {
+                font-size: 1.1rem;
+                margin: 1.5rem 0 0.75rem;
+            }
+
+            .feature-icon,
+            .feature-icon-soon {
+                width: 56px;
+                height: 56px;
+                font-size: 24px;
+                border-radius: 20px;
+            }
+
+            .coming-soon-label {
+                font-size: 0.5rem;
+                padding: 0.1rem 0.4rem;
+            }
+
+            .feature-content p {
+                font-size: 0.8rem;
+            }
+
+            .feature-grid {
+                gap: 1rem;
+            }
+
+            .feature-card,
+            .coming-soon-card {
+                padding: 1.25rem 1rem;
+            }
+        }
+
+        /* 印刷用スタイル */
+        @media print {
+            .gradient-background {
+                background: white !important;
+            }
+
+            .glass-card {
+                box-shadow: none !important;
+                border: 1px solid #e2e8f0 !important;
+                background-color: white !important;
+                break-inside: avoid;
+            }
+
+            .app-container {
+                max-width: 100%;
+                padding: 0;
+            }
+
+            .bg-decoration,
+            .texture-overlay {
+                display: none;
+            }
         }
     </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'primary': { // より落ち着いた青系
-                            50: '#f0f8ff',
-                            100: '#e0f2fe',
-                            200: '#bce6fd',
-                            300: '#98d8fc',
-                            400: '#5cbcf8',
-                            500: '#38a8f5', // メインカラー調整
-                            600: '#248bd7',
-                            700: '#1b6fae',
-                            800: '#165a8d',
-                            900: '#144b73',
-                        },
-                        'accent': { // アクセントカラー (ヒョウのイメージから)
-                            'gold': '#d4af37',
-                            'warm': '#F0C653', // 自己成長で使用
-                            'sky': '#A9C7C9', // 知識で使用
-                            'earth': '#B59C82', // 自己理解で使用
-                            'passion': '#F497B7', // 探求心で使用
-                            'deep-blue': '#87C6ED', // 自律性で使用
-                        },
-                        'neutral': { // グレー系の調整
-                            50: '#f8fafc',
-                            100: '#f1f5f9',
-                            200: '#e2e8f0',
-                            300: '#cbd5e1',
-                            400: '#94a3b8',
-                            500: '#64748b',
-                            600: '#475569',
-                            700: '#334155',
-                            800: '#1e293b',
-                            900: '#0f172a',
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['Inter', 'Noto Sans JP', 'sans-serif'],
-                    },
-                    borderRadius: {
-                        'xl': '1rem',
-                        '2xl': '1.5rem',
-                        '3xl': '2rem',
-                    },
-                    boxShadow: {
-                        'subtle': '0 4px 12px rgba(0, 0, 0, 0.05)',
-                        'card': '0 8px 32px rgba(100, 140, 200, 0.15)',
-                        'card-hover': '0 12px 40px rgba(100, 140, 200, 0.2)',
-                        'button': '0 4px 15px rgba(0, 0, 0, 0.1)',
-                        'button-hover': '0 6px 20px rgba(0, 0, 0, 0.15)',
-                    },
-                    animation: {
-                        'pulse-gentle': 'pulse 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'fadeInUp': 'fadeInUp 0.6s ease-out forwards',
-                        'growProgressBar': 'growProgressBar 1s cubic-bezier(0.25, 0.8, 0.25, 1) forwards',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            'from': { opacity: '0', transform: 'translateY(20px)' },
-                            'to': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        growProgressBar: {
-                            'from': { transform: 'scaleX(0)' },
-                            'to': { transform: 'scaleX(1)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
 </head>
 
-<body class="gradient-background min-h-screen text-neutral-800">
-    <div class="max-w-2xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+<body class="gradient-background">
+    <!-- 背景装飾 -->
+    <div class="bg-decoration bg-decoration-1" aria-hidden="true"></div>
+    <div class="bg-decoration bg-decoration-2" aria-hidden="true"></div>
+    <div class="bg-decoration bg-decoration-3" aria-hidden="true"></div>
+    <div class="texture-overlay" aria-hidden="true"></div>
 
-        <main class="space-y-10">
-            <section class="p-6 sm:p-8 animate-fadeInUp delay-100">
-                <div class="flex flex-col md:flex-row items-center gap-6 md:gap-8">
-                    <div class="flex-1 text-center md:text-left">
-                        <p class="text-base text-center text-neutral-600 mb-1">
-                            あなたのIt's Meタイプは
-                        </p>
-                        <p class="text-2xl text-center font-bold text-accent-gold mb-2">ヒョウ</p>
-                        <div class="flex-shrink-0 relative group w-36 h-36 sm:w-40 sm:h-40">
-                            <div
-                                class="absolute inset-0 bg-gradient-to-br from-amber-100 to-orange-200 rounded-full opacity-50 transition-opacity duration-300 ease-in-out scale-110 blur-md">
-                            </div>
-                            <img src="images/hyou.png" alt="ヒョウ - 自己成長と自己理解"
-                                class="w-full h-full object-contain rounded-lg transition duration-300 ease-in-out relative z-10">
-                        </div>
-                        <div style="height: 1.25rem;"></div>
-                        <p class="text-xl font-semibold text-neutral-800 mb-3">大事にしている価値観は</p>
-                        <h2 class="text-3xl sm:text-4xl font-bold text-primary-600 mb-6 leading-tight">自己成長と自己理解</h2>
-
-                        <button id="shareButton"
-                            class="inline-flex items-center justify-center gap-2 bg-white border border-neutral-300 rounded-full px-6 py-2.5 text-sm font-semibold text-neutral-700 shadow-subtle hover:bg-primary-50 hover:border-primary-300 hover:text-primary-600 active:scale-[0.97] transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 group btn-hover-effect">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round"
-                                class="transition-colors duration-200 ease-in-out group-hover:stroke-primary-600">
-                                <circle cx="18" cy="5" r="3"></circle>
-                                <circle cx="6" cy="12" r="3"></circle>
-                                <circle cx="18" cy="19" r="3"></circle>
-                                <line x1="8.59" x2="15.42" y1="13.51" y2="17.49"></line>
-                                <line x1="15.41" x2="8.59" y1="6.51" y2="10.49"></line>
-                            </svg>
-                            結果をシェアする
-                        </button>
-                        <p id="shareFeedback" class="text-xs text-green-600 mt-2 h-4"></p>
+    <div class="app-container">
+        <!-- ヘッダー -->
+        <header class="app-header" role="banner">
+            <div class="logo-area">
+                <a href="#" class="app-logo" aria-label="アプリのホーム画面に戻る">
+                    <div class="logo-icon">
+                        <span class="material-icons-round">psychology</span>
                     </div>
-                </div>
-            </section>
-
-            <section class="content-card p-6 sm:p-8 animate-fadeInUp delay-200">
-                <h3 class="text-xl font-bold text-neutral-800 mb-6 flex items-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-500" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.196-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                    </svg>
-                    あなたの価値観 TOP 5
-                </h3>
-
-                <div class="space-y-6">
-                    <div class="value-item animate-fadeInUp delay-300">
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-md bg-accent-warm">
-                                1</div>
-                            <div class="flex-1">
-                                <div class="flex justify-between items-baseline mb-1.5">
-                                    <span class="text-base font-medium text-neutral-700">自己成長と自己理解</span>
-                                    <span class="text-sm font-semibold text-accent-warm">92%</span>
-                                </div>
-                                <div class="w-full bg-neutral-200 rounded-full h-3 overflow-hidden">
-                                    <div class="h-full rounded-full bg-accent-warm animate-growProgressBar"
-                                        style="width: 92%; animation-delay: 0.3s;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="value-item animate-fadeInUp delay-400">
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-md bg-accent-sky">
-                                2</div>
-                            <div class="flex-1">
-                                <div class="flex justify-between items-baseline mb-1.5">
-                                    <span class="text-base font-medium text-neutral-700">挑戦と冒険</span>
-                                    <span class="text-sm font-semibold text-accent-sky">85%</span>
-                                </div>
-                                <div class="w-full bg-neutral-200 rounded-full h-3 overflow-hidden">
-                                    <div class="h-full rounded-full bg-accent-sky animate-growProgressBar"
-                                        style="width: 85%; animation-delay: 0.4s;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="value-item animate-fadeInUp delay-500">
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-md bg-accent-earth">
-                                3</div>
-                            <div class="flex-1">
-                                <div class="flex justify-between items-baseline mb-1.5">
-                                    <span class="text-base font-medium text-neutral-700">美と創造</span>
-                                    <span class="text-sm font-semibold text-accent-earth">78%</span>
-                                </div>
-                                <div class="w-full bg-neutral-200 rounded-full h-3 overflow-hidden">
-                                    <div class="h-full rounded-full bg-accent-earth animate-growProgressBar"
-                                        style="width: 78%; animation-delay: 0.5s;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="value-item animate-fadeInUp delay-600">
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-md bg-accent-passion">
-                                4</div>
-                            <div class="flex-1">
-                                <div class="flex justify-between items-baseline mb-1.5">
-                                    <span class="text-base font-medium text-neutral-700">健康と安定</span>
-                                    <span class="text-sm font-semibold text-accent-passion">73%</span>
-                                </div>
-                                <div class="w-full bg-neutral-200 rounded-full h-3 overflow-hidden">
-                                    <div class="h-full rounded-full bg-accent-passion animate-growProgressBar"
-                                        style="width: 73%; animation-delay: 0.6s;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="value-item animate-fadeInUp delay-700">
-                        <div class="flex items-center gap-4">
-                            <div
-                                class="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center font-bold text-white text-sm shadow-md bg-accent-deep-blue">
-                                5</div>
-                            <div class="flex-1">
-                                <div class="flex justify-between items-baseline mb-1.5">
-                                    <span class="text-base font-medium text-neutral-700">権威と名声</span>
-                                    <span class="text-sm font-semibold text-accent-deep-blue">68%</span>
-                                </div>
-                                <div class="w-full bg-neutral-200 rounded-full h-3 overflow-hidden">
-                                    <div class="h-full rounded-full bg-accent-deep-blue animate-growProgressBar"
-                                        style="width: 68%; animation-delay: 0.7s;"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section class="content-card p-6 sm:p-8 animate-fadeInUp delay-300">
-                <h3 class="text-xl font-bold text-neutral-800 text-center mb-8 flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-500" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                    あなたの価値観を活かすヒント
-                </h3>
-
-                <div class="space-y-8">
-                    <div class="advice-item">
-                        <h4 class="flex items-center text-lg font-semibold text-neutral-800 mb-3 pl-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-red-400 flex-shrink-0"
-                                viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            結婚・恋人・恋愛
-                        </h4>
-                        <p class="text-sm text-neutral-600 leading-relaxed pl-5 pr-1">
-                            あなたの価値観を尊重し、共に成長できるパートナーとの関係が理想的です。互いの自己成長を応援し合い、知的な刺激を与え合える関係を築くことで満足感を得られます。あなたは関係においても目標を持ち、それに向かって努力することを大切にします。批判よりも建設的なフィードバックを交換し、互いの可能性を引き出し合えるパートナーとの間に、深い絆と信頼を築くことができるでしょう。自分自身と相手の内面を深く理解することを通じて、より質の高い愛情関係を発展させる才能があります。特に「挑戦と冒険」(ウサギ)タイプや「信仰と精神」(ゾウ)タイプとは、互いの成長を刺激し合う深い関係を築きやすいでしょう。また「美と創造」(クジャク)タイプとの組み合わせも、創造性と内省のバランスが取れた関係になりやすい傾向があります。
-                        </p>
-                    </div>
-
-                    <div class="advice-item">
-                        <h4 class="flex items-center text-lg font-semibold text-neutral-800 mb-3 pl-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-teal-500 flex-shrink-0"
-                                viewBox="0 0 20 20" fill="currentColor">
-                                <path
-                                    d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-                            </svg>
-                            友人・対人関係
-                        </h4>
-                        <p class="text-sm text-neutral-600 leading-relaxed pl-5 pr-1">
-                            知的好奇心を共有し、建設的な対話ができる友人関係を大切にします。あなたは友人との関わりにおいても、互いの成長と達成を促進する関係性を求める傾向があります。単なる楽しい時間の共有だけでなく、意味のある交流や挑戦を通じて深まる友情に価値を見出すでしょう。勤勉さと真摯さをもって友情に取り組むあなたは、長期的に続く信頼関係を築く能力に長けています。多様な視点や意見に触れることで自己理解を深められる交友関係を意識的に構築することが、あなたの人間関係をより豊かにするでしょう。
-                        </p>
-                    </div>
-
-                    <div class="advice-item">
-                        <h4 class="flex items-center text-lg font-semibold text-neutral-800 mb-3 pl-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-amber-500 flex-shrink-0"
-                                viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
-                                    clip-rule="evenodd" />
-                                <path
-                                    d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0010 15.092 24.97 24.97 0 002 13.692z" />
-                            </svg>
-                            キャリア・仕事
-                        </h4>
-                        <p class="text-sm text-neutral-600 leading-relaxed mb-4 pl-5 pr-1">
-                            継続的な学びと達成感を得られる環境で最も力を発揮します。自分の能力を常に伸ばし、重要な課題に一生懸命取り組める仕事があなたに適しています。目標達成に向けて勤勉に取り組み、その過程で自己成長を実感できる職場環境が理想的です。自分の仕事に対する深い理解と責任感を持ち、常に質の向上を目指す姿勢が、あなたのキャリアにおける強みとなるでしょう。
-                        </p>
-                        <p class="text-sm font-medium text-neutral-700 mb-2 pl-5">適した職種の例:</p>
-                        <ul class="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1.5 pl-5 pr-1">
-                            <!-- 教師・講師 -->
-                            <li class="text-sm text-neutral-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                教師・講師
-                            </li>
-
-                            <!-- 企業研修担当者 -->
-                            <li class="text-sm text-neutral-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                企業研修担当者
-                            </li>
-
-                            <!-- 編集者・ライター -->
-                            <li class="text-sm text-neutral-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                編集者・ライター
-                            </li>
-
-                            <!-- カウンセラー・心理士 -->
-                            <li class="text-sm text-neutral-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                カウンセラー・心理士
-                            </li>
-
-                            <!-- ITコンサルタント -->
-                            <li class="text-sm text-neutral-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                ITコンサルタント
-                            </li>
-
-                            <!-- キャリアアドバイザー -->
-                            <li class="text-sm text-neutral-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-amber-400 flex-shrink-0" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                キャリアアドバイザー
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="advice-item">
-                        <h4 class="flex items-center text-lg font-semibold text-neutral-800 mb-3 pl-5">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500 flex-shrink-0"
-                                viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.414-1.414L11 10.586V6z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            おすすめの余暇・レジャー
-                        </h4>
-                        <p class="text-sm text-neutral-600 leading-relaxed mb-4 pl-5 pr-1">
-                            知識を深め、自己理解を促進する活動があなたの充実感につながります。達成感を得られる挑戦や、内省的な時間を持てる活動が特におすすめです。目標を設定し、それに向かって勤勉に取り組むプロセスから喜びを得られる趣味が適しています。
-                        </p>
-                        <ul class="grid grid-cols-2 sm:grid-cols-3 gap-x-4 gap-y-1.5 pl-5 pr-1">
-                            <!-- 読書 -->
-                            <li class="text-sm text-neutral-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                読書
-                            </li>
-
-                            <!-- オンライン学習 -->
-                            <li class="text-sm text-neutral-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                オンライン学習
-                            </li>
-
-                            <!-- 博物館・美術館巡り -->
-                            <li class="text-sm text-neutral-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                博物館・美術館巡り
-                            </li>
-
-                            <!-- 旅行 (特に知的好奇心を刺激する場所) -->
-                            <li class="text-sm text-neutral-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                旅行
-                            </li>
-
-                            <!-- 瞑想・マインドフルネス実践 -->
-                            <li class="text-sm text-neutral-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                瞑想・マインドフルネス実践
-                            </li>
-
-                            <!-- ボードゲーム・パズル -->
-                            <li class="text-sm text-neutral-600 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg"
-                                    class="h-3.5 w-3.5 mr-1.5 text-blue-400 flex-shrink-0" viewBox="0 0 20 20"
-                                    fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                ボードゲーム・パズル
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <div class="text-center mt-10 animate-fadeInUp delay-400">
-                <button id="moreInfoButton"
-                    class="bg-gradient-to-r from-primary-500 to-blue-600 hover:from-primary-600 hover:to-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-button hover:shadow-button-hover active:scale-[0.97] transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-500 flex items-center justify-center mx-auto btn-hover-effect">
-                    さらに詳しく知る
+                    <span>It's Me</span>
+                </a>
+            </div>
+            <div class="action-area">
+                <button class="header-button" aria-label="設定を開く" type="button">
+                    <span class="material-icons-round">settings</span>
+                </button>
+                <button class="header-button" aria-label="通知を表示" type="button">
+                    <span class="material-icons-round">notifications</span>
                 </button>
             </div>
+        </header>
 
-            <section id="moreInfoSection" class="content-card p-6 sm:p-8 mt-10"
-                style="display: none; opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease-out, transform 0.5s ease-out;">
-                <h3 class="text-xl font-bold text-neutral-800 text-center mb-8 flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-purple-500" fill="none"
-                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    あなたの価値観をより深く理解する
-                </h3>
-                <div class="prose prose-neutral max-w-none prose-sm sm:prose-base">
-                    <p>
-                        自己成長と自己理解を最重視するあなたは、人生を通じて常に学び、自分自身を高めていくことに強い意欲を持っています。単にスキルや知識を習得するだけでなく、自身の内面と向き合い、感情や思考パターンを理解し、より良い自分であろうと努める探求者です。
-                    </p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                        <div class="bg-primary-100 p-4 rounded-lg border border-primary-300">
-                            <h4 class="font-semibold text-primary-700 mb-2 !mt-0">あなたの強み</h4>
-                            <ul class="!pl-0 !list-none space-y-1.5">
-                                <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="h-5 w-5 mr-2 text-primary-500 flex-shrink-0 mt-0.5" viewBox="0 0 20 20"
-                                        fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <span>継続的な学習意欲と高い吸収力</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="h-5 w-5 mr-2 text-primary-500 flex-shrink-0 mt-0.5" viewBox="0 0 20 20"
-                                        fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <span>深い自己省察とメタ認知能力</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="h-5 w-5 mr-2 text-primary-500 flex-shrink-0 mt-0.5" viewBox="0 0 20 20"
-                                        fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <span>困難な経験からも学びを得るレジリエンス</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="bg-amber-50 p-4 rounded-lg border border-amber-200">
-                            <h4 class="font-semibold text-amber-700 mb-2 !mt-0">成長のためのヒント</h4>
-                            <ul class="!pl-0 !list-none space-y-1.5">
-                                <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="h-5 w-5 mr-2 text-amber-500 flex-shrink-0 mt-0.5" viewBox="0 0 20 20"
-                                        fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <span>完璧主義を手放し、過程を楽しむことを意識する</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="h-5 w-5 mr-2 text-amber-500 flex-shrink-0 mt-0.5" viewBox="0 0 20 20"
-                                        fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <span>知識のインプットだけでなく、実践・アウトプットの機会を増やす</span>
-                                </li>
-                                <li class="flex items-start">
-                                    <svg xmlns="http://www.w3.org/2000/svg"
-                                        class="h-5 w-5 mr-2 text-amber-500 flex-shrink-0 mt-0.5" viewBox="0 0 20 20"
-                                        fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                            d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    <span>他者との対話や協働を通じて、多様な視点を取り入れる</span>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="bg-purple-100 p-4 rounded-lg border border-purple-300">
-                            <h4 class="font-semibold text-purple-700 mb-2 !mt-0 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-purple-500"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd"
-                                        d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                                ストレス対処法
-                            </h4>
-                            <p>
-                                あなたは自分の能力や成長に対して高い基準を持ち、それが時にストレスとなります。リラックスするためには、達成を目的としない活動（無目的な散歩、自然観察など）に意識的に時間を割きましょう。また、「何もしない時間」を計画に入れることも効果的です。内省が過度になったときは、具体的な行動や身体活動に移ることで、バランスを取り戻せます。
-                            </p>
-                        </div>
+        <main role="main">
+            <!-- プロファイルカード -->
+            <div class="glass-card profile-card" id="profileCard" tabindex="0" role="button"
+                aria-label="自分のプロフィールと診断結果の詳細を見る">
+                <!-- 装飾パターン -->
+                <div class="decoration-dots dots-top-right" aria-hidden="true"></div>
+                <div class="decoration-dots dots-bottom-left" aria-hidden="true"></div>
 
-                        <div class="bg-blue-100 p-4 rounded-lg border border-blue-300">
-                            <h4 class="font-semibold text-blue-700 mb-2 !mt-0 flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-blue-500"
-                                    viewBox="0 0 20 20" fill="currentColor">
-                                    <path
-                                        d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z" />
-                                </svg>
-                                意思決定パターン
-                            </h4>
-                            <p>
-                                あなたは意思決定において、「この選択が自分の成長につながるか」「重要な目標達成に貢献するか」を重視します。綿密な分析と内省に基づいた判断を好みますが、時にはこれが優柔不断につながることも。重要な決断では、直感と論理のバランスを取り、過度の分析による決断の遅れに注意しましょう。また、すべての決断が成長や達成に結びつく必要はないことも覚えておくと良いでしょう。
-                            </p>
+                <!-- シェアボタン -->
+                <button class="share-button top-right" aria-label="診断結果をシェアする" id="shareButton" type="button">
+                    <span class="material-icons-round">share</span>
+                </button>
+
+                <div class="animal-icon" aria-hidden="true">
+                    <div class="animal-bg"></div>
+                    <img src="../../../../素材/mock/preview/images/hyou.png" alt="ヒョウ" class="animal-image">
+                </div>
+                <div class="user-info">
+                    <p class="greeting">こんにちは！</p>
+                    <h2 class="user-type">ヒョウタイプさん</h2>
+                    <p class="value-type">自己成長と自己理解</p>
+                </div>
+            </div>
+
+            <!-- 機能ナビゲーション -->
+            <section aria-labelledby="features-heading">
+                <h2 class="section-title" id="features-heading">
+                    <span class="material-icons-round">dashboard</span>
+                    機能
+                </h2>
+
+                <div class="feature-grid">
+                    <!-- 価値観診断カード -->
+                    <div class="glass-card feature-card" tabindex="0" id="diagnosisCard" role="button"
+                        aria-label="価値観診断を開始する">
+                        <div class="feature-icon icon-stats" aria-hidden="true">
+                            <span class="material-icons-round icon-lg">insights</span>
+                        </div>
+                        <div class="feature-content">
+                            <h3>価値観診断</h3>
+                            <p>自分を知る旅へ</p>
                         </div>
                     </div>
 
-                    <div class="bg-teal-100 p-4 rounded-lg border border-teal-300 mt-6">
-                        <h4 class="font-semibold text-teal-700 mb-2 !mt-0 flex items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-teal-500"
-                                viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            対人関係での盲点
-                        </h4>
-                        <p>
-                            自己成長を重視するあまり、時として他者も同じように自己向上に関心があると思い込みがちです。すべての人が同じレベルの内省や成長志向を持っているわけではないことを理解し、他者の価値観や関心事を尊重することが大切です。また、あなたの真摯さと勤勉さが、時に他者にプレッシャーを与えることがあるため、相手のペースや心理状態にも配慮すると、より調和のとれた人間関係を築けるでしょう。
-                        </p>
+                    <!-- AIアドバイザーカード -->
+                    <div class="glass-card coming-soon-card" tabindex="0" id="advisorCard" role="button"
+                        aria-label="AIアドバイザー - 近日公開予定">
+                        <div class="feature-icon-soon icon-advisor" aria-hidden="true">
+                            <div class="icon-pulse"></div>
+                            <span class="material-icons-round icon-lg">psychology</span>
+                        </div>
+                        <div class="coming-soon-label">COMING SOON</div>
+                        <div class="feature-content">
+                            <h3>AIアドバイザー</h3>
+                            <p>あなたの価値観に合わせたパーソナルアドバイス</p>
+                        </div>
+                    </div>
+
+                    <!-- バリューランタンカード -->
+                    <div class="glass-card coming-soon-card" tabindex="0" id="valueLanternCard" role="button"
+                        aria-label="バリューランタン - 近日公開予定">
+                        <div class="feature-icon-soon icon-resources" aria-hidden="true">
+                            <div class="icon-pulse"></div>
+                            <span class="material-icons-round icon-lg">light</span>
+                        </div>
+                        <div class="coming-soon-label">COMING SOON</div>
+                        <div class="feature-content">
+                            <h3>バリューランタン</h3>
+                            <p>人生を見失わないために灯を灯そう</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
-            <section class="content-card p-6 sm:p-8 mt-8 animate-fadeInUp relative overflow-hidden">
-                <!-- 背景装飾 -->
-                <div class="absolute -right-6 -top-6 w-24 h-24 bg-purple-100 rounded-full opacity-50 blur-xl"></div>
-                <div class="absolute -left-10 -bottom-10 w-32 h-32 bg-blue-100 rounded-full opacity-40 blur-xl"></div>
-
-                <!-- メインコンテンツ -->
-                <div class="flex flex-col items-center text-center relative z-10">
-                    <!-- アイコン部分 -->
-                    <div class="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mb-5 relative">
-                        <div
-                            class="absolute inset-0 rounded-full bg-gradient-to-r from-primary-200 to-purple-200 animate-pulse">
+            <!-- 診断記録 -->
+            <section aria-labelledby="history-heading">
+                <h2 class="section-title" id="history-heading">
+                    <span class="material-icons-round">history</span>
+                    診断の履歴
+                </h2>
+                <div class="glass-card history-card">
+                    <div class="history-list">
+                        <!-- 2回目の診断結果 -->
+                        <div class="history-item">
+                            <div class="history-date-badge">
+                                <span class="material-icons-round">event</span>
+                                2025/01/01
+                            </div>
+                            <div class="history-content" tabindex="0" role="button" aria-label="2回目の診断結果を見る（2025年1月1日）">
+                                <div class="diagnosis-number">2</div>
+                                <div class="history-info">
+                                    <div style="display: flex; align-items: center;">
+                                        <span class="history-type">ヒョウタイプ</span>
+                                        <span class="comparison-marker">
+                                            <span class="material-icons-round">check_circle</span>安定
+                                        </span>
+                                    </div>
+                                    <div class="history-value">自己成長と自己理解</div>
+                                </div>
+                                <div class="history-icon-wrapper">
+                                    <div class="history-icon" aria-hidden="true">
+                                        <img src="../../../../素材/mock/preview/images/hyou.png" alt="ヒョウ" class="history-icon-image">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-primary-600 relative z-10"
-                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-                        </svg>
-                    </div>
 
-                    <!-- ラベル部分 -->
-                    <div
-                        class="bg-gradient-to-r from-pink-500 to-purple-500 text-white text-xs font-bold py-1 px-3 rounded-full mb-4 shadow-md">
-                        COMING SOON
-                    </div>
+                        <!-- 1回目の診断結果 -->
+                        <div class="history-item">
+                            <div class="history-date-badge">
+                                <span class="material-icons-round">event</span>
+                                2024/09/02
+                            </div>
+                            <div class="history-content" tabindex="0" role="button" aria-label="1回目の診断結果を見る（2024年9月2日）">
+                                <div class="diagnosis-number">1</div>
+                                <div class="history-info">
+                                    <div style="display: flex; align-items: center;">
+                                        <span class="history-type">ヒョウタイプ</span>
+                                        <span class="comparison-marker">
+                                            <span class="material-icons-round">new_releases</span>初回
+                                        </span>
+                                    </div>
+                                    <div class="history-value">自己成長と自己理解</div>
+                                </div>
+                                <div class="history-icon-wrapper">
+                                    <div class="history-icon" aria-hidden="true">
+                                        <img src="../../../../素材/mock/preview/images/hyou.png" alt="ヒョウ" class="history-icon-image">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                    <!-- タイトルと説明 -->
-                    <h3 class="text-xl font-bold text-neutral-800 mb-3">あなたに合わせたアドバイス</h3>
-                    <p class="text-sm text-neutral-600 mb-6 max-w-md">
-                        自己成長と自己理解を大切にするあなたへ。<br>
-                        価値観に基づいた具体的なアドバイスをAIアドバイザーから近日中に受けられるようになります。
-                    </p>
+                        <!-- 空の状態のサンプル（通常は非表示）
+                        <div class="empty-state">
+                            <div class="empty-icon" aria-hidden="true">
+                                <span class="material-icons-outlined">history</span>
+                            </div>
+                            <p>まだ診断履歴がありません</p>
+                            <button class="start-button" type="button">診断を始める</button>
+                        </div>
+                        -->
+                    </div>
                 </div>
             </section>
-
-            <section class="text-center mt-12 mb-8 animate-fadeInUp">
-                <a href="index.html" id="homeButton"
-                    class="inline-flex items-center justify-center gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold py-3 px-8 rounded-full shadow-button hover:shadow-button-hover active:scale-[0.97] transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                    </svg>
-                    ホームに進む
-                </a>
-            </section>
-
         </main>
 
-        <footer
-            class="mt-16 text-center text-xs text-neutral-500 py-6 border-t border-neutral-200/50 animate-fadeInUp delay-500">
-            <p class="mb-1">&copy; 2025 It's Me - あなたの価値観発見ツール</p>
-            <p>自分らしさを大切に、充実した毎日を。</p>
-        </footer>
+        <!-- フィードバックトースト -->
+        <div class="toast-container" id="toastContainer" role="status" aria-live="polite">
+            <div class="toast">
+                <span class="material-icons-round toast-icon">check_circle</span>
+                <span id="toastMessage">操作が完了しました</span>
+            </div>
+        </div>
     </div>
 
     <script>
+        // ページ読み込み時の初期化
         document.addEventListener('DOMContentLoaded', function () {
-            // Intersection Observer for animations
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1 // 10%見えたら発火
-            };
-
-            const observerCallback = (entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                        // 一度表示されたら監視を解除 (オプション)
-                        observer.unobserve(entry.target);
-                    }
-                });
-            };
-
-            const observer = new IntersectionObserver(observerCallback, observerOptions);
-            const elementsToAnimate = document.querySelectorAll('.animate-fadeInUp');
-            elementsToAnimate.forEach(el => {
-                el.style.opacity = '0'; // 初期状態を確実に非表示に
-                el.style.transform = 'translateY(20px)';
-                el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-                // アニメーション遅延はCSS側で設定
-                observer.observe(el);
-            });
-
-            // プログレスバーのアニメーション (これは表示されたタイミングで動かしたいので別途)
-            const progressBarObserverCallback = (entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.querySelector('.animate-growProgressBar')?.classList.add('start-animation');
-                        // styleでアニメーション開始するように変更も可
-                        observer.unobserve(entry.target);
-                    }
-                });
-            };
-            const progressBarObserver = new IntersectionObserver(progressBarObserverCallback, { threshold: 0.5 }); // 50%見えたら
-            const valueItems = document.querySelectorAll('.value-item');
-            valueItems.forEach(item => progressBarObserver.observe(item));
-
-
-            // シェアボタン機能
+            // DOM参照の取得
+            const profileCard = document.getElementById('profileCard');
             const shareButton = document.getElementById('shareButton');
-            const shareFeedback = document.getElementById('shareFeedback');
+            const diagnosisCard = document.getElementById('diagnosisCard');
+            const advisorCard = document.getElementById('advisorCard');
+            const valueLanternCard = document.getElementById('valueLanternCard');
+            const historyContents = document.querySelectorAll('.history-content');
+
+            // キーボードイベントの処理関数
+            function handleKeyboardInteraction(element, handler) {
+                if (element) {
+                    element.addEventListener('keydown', function (e) {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            handler.call(this, e);
+                        }
+                    });
+                }
+            }
+
+            // プロファイルカードのイベント設定
+            if (profileCard) {
+                profileCard.addEventListener('click', function () {
+                    window.location.href = 'assessment_result_page.html';
+                });
+
+                handleKeyboardInteraction(profileCard, function () {
+                    window.location.href = 'assessment_result_page.html';
+                });
+            }
+
+            // シェアボタンの機能
             if (shareButton) {
-                shareButton.addEventListener('click', async () => {
-                    const shareData = {
-                        title: '私の価値観診断結果：「自己成長と自己理解」タイプでした！',
-                        text: 'It\'s Me 価値観診断の結果、私は「ヒョウ：自己成長と自己理解」タイプでした🐆✨ あなたも自分の価値観をチェックしてみませんか？ #価値観診断 #自己分析',
-                        url: window.location.href
-                    };
+                shareButton.addEventListener('click', async function (e) {
+                    e.stopPropagation(); // プロファイルカードのクリックイベントを阻止
+
                     try {
+                        // Web Share APIが利用可能か確認
                         if (navigator.share) {
-                            await navigator.share(shareData);
-                            console.log('共有成功');
-                            shareFeedback.textContent = '共有しました！';
+                            await navigator.share({
+                                title: '私の価値観診断結果',
+                                text: '私はヒョウタイプ（自己成長と自己理解）でした！あなたの価値観も診断してみませんか？',
+                                url: window.location.href,
+                            });
+                            showToast('シェアしました！');
                         } else {
-                            // フォールバック: クリップボードにコピー
-                            const fallbackText = `${shareData.title}\n${shareData.text}\n${shareData.url}`;
-                            await navigator.clipboard.writeText(fallbackText);
-                            console.log('クリップボードにコピー成功');
-                            shareFeedback.textContent = '結果をクリップボードにコピーしました！';
+                            // Web Share APIが使えない場合はクリップボードにコピー
+                            const shareText = '私はヒョウタイプ（自己成長と自己理解）でした！あなたの価値観も診断してみませんか？ ' + window.location.href;
+                            await navigator.clipboard.writeText(shareText);
+                            showToast('結果をクリップボードにコピーしました');
                         }
                     } catch (error) {
-                        console.error('共有またはコピー失敗:', error);
-                        shareFeedback.textContent = '共有に失敗しました…';
-                    }
-                    // フィードバックメッセージを数秒後に消す
-                    setTimeout(() => { shareFeedback.textContent = ''; }, 3000);
-                });
-            }
-
-            // 「もっと詳しく知る」ボタン機能
-            const moreInfoButton = document.getElementById('moreInfoButton');
-            const moreInfoSection = document.getElementById('moreInfoSection');
-            if (moreInfoButton && moreInfoSection) {
-                moreInfoButton.addEventListener('click', () => {
-                    if (moreInfoSection.style.display === 'none') {
-                        moreInfoSection.style.display = 'block';
-                        // 少し遅延させてからフェードイン開始
-                        requestAnimationFrame(() => {
-                            requestAnimationFrame(() => { // 2回RAFを挟むとより確実
-                                moreInfoSection.style.opacity = '1';
-                                moreInfoSection.style.transform = 'translateY(0)';
-                            });
-                        });
-                        // ボタンのテキスト変更 (任意)
-                        moreInfoButton.innerHTML = `
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-              </svg>
-              閉じる
-            `;
-                        // セクションまでスクロール
-                        moreInfoSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-                    } else {
-                        moreInfoSection.style.opacity = '0';
-                        moreInfoSection.style.transform = 'translateY(20px)';
-                        // アニメーションが終わってから非表示に
-                        setTimeout(() => {
-                            moreInfoSection.style.display = 'none';
-                        }, 500); // transition durationと合わせる
-                        // ボタンのテキストを元に戻す (任意)
-                        moreInfoButton.innerHTML = `
-              さらに詳しく知る
-            `;
+                        console.error('シェアに失敗しました', error);
+                        showToast('シェアできませんでした');
                     }
                 });
             }
 
-            // カードホバーエフェクト (CSSで実装したので不要だが、参考として残す)
-            /*
-            const cards = document.querySelectorAll('.content-card');
-            cards.forEach(card => {
-              card.addEventListener('mouseenter', () => {
-                card.style.transform = 'translateY(-5px) scale(1.01)';
-                card.style.boxShadow = '0 12px 40px rgba(100, 140, 200, 0.2)';
-              });
-              card.addEventListener('mouseleave', () => {
-                card.style.transform = 'translateY(0) scale(1)';
-                card.style.boxShadow = '0 8px 32px rgba(100, 140, 200, 0.15)';
-              });
+            // 機能カードのイベント設定
+            function setupFeatureCard(card, message, action) {
+                if (card) {
+                    card.addEventListener('click', function () {
+                        showToast(message);
+                        if (action) action();
+                    });
+
+                    handleKeyboardInteraction(card, function () {
+                        showToast(message);
+                        if (action) action();
+                    });
+                }
+            }
+
+            setupFeatureCard(diagnosisCard, '新しい診断を開始します', function () {
+                // 実際のアプリでは診断ページへ遷移
+                // window.location.href = 'diagnosis.html';
             });
-            */
+
+            setupFeatureCard(advisorCard, 'AIアドバイザーは近日公開予定です');
+            setupFeatureCard(valueLanternCard, 'バリューランタンは近日公開予定です');
+
+            // 履歴項目のイベント設定
+            historyContents.forEach(function (item) {
+                item.addEventListener('click', function () {
+                    const historyType = this.querySelector('.history-type').textContent;
+                    const historyDate = this.closest('.history-item').querySelector('.history-date-badge').textContent.trim().split(' ')[1];
+                    showToast(`${historyDate}の${historyType}の詳細を表示します`);
+
+                    // 実際のアプリでは履歴詳細ページへの遷移を実装
+                    window.location.href = 'assessment_result_page.html';
+                });
+
+                handleKeyboardInteraction(item, function () {
+                    const historyType = this.querySelector('.history-type').textContent;
+                    const historyDate = this.closest('.history-item').querySelector('.history-date-badge').textContent.trim().split(' ')[1];
+                    showToast(`${historyDate}の${historyType}の詳細を表示します`);
+
+                    // 実際のアプリでは履歴詳細ページへの遷移を実装
+                    window.location.href = 'assessment_result_page.html';
+                });
+            });
         });
+
+        // トースト表示関数
+        function showToast(message) {
+            const toastContainer = document.getElementById('toastContainer');
+            const toastMessage = document.getElementById('toastMessage');
+
+            if (toastContainer && toastMessage) {
+                toastMessage.textContent = message;
+                toastContainer.classList.add('show');
+
+                // 3秒後に非表示
+                setTimeout(function () {
+                    toastContainer.classList.remove('show');
+                }, 3000);
+            }
+        }
     </script>
 </body>
 
