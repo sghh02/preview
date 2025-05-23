@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;600;700&family=Material+Icons+Round&family=Material+Icons+Outlined&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;600;700;800&family=Material+Icons+Round&family=Material+Icons+Outlined&display=swap"
         rel="stylesheet">
     <style>
         /* リセットとベース */
@@ -22,49 +22,68 @@
         }
 
         :root {
-            /* メインカラーパレット */
-            --primary: #4f46e5;
-            --primary-light: #818cf8;
-            --primary-dark: #3730a3;
-            --secondary: #8b5cf6;
-            --accent: #ec4899;
-            --success: #10b981;
-            --warning: #f59e0b;
-            --error: #ef4444;
-            --neutral-50: #f8fafc;
-            --neutral-100: #f1f5f9;
-            --neutral-200: #e2e8f0;
-            --neutral-300: #cbd5e1;
-            --neutral-400: #94a3b8;
-            --neutral-500: #64748b;
-            --neutral-600: #475569;
-            --neutral-700: #334155;
-            --neutral-800: #1e293b;
-            --neutral-900: #0f172a;
+            /* プレミアムカラーパレット */
+            --primary: #5046E5;
+            --primary-light: #6366F1;
+            --primary-dark: #3730A3;
+            --primary-soft: #EDE9FE;
 
-            /* タイプ別カラー */
-            --type-1-color: #6366f1;
-            --type-2-color: #8b5cf6;
-            --type-3-color: #ec4899;
-            --type-4-color: #f59e0b;
-            --type-5-color: #10b981;
-            --type-6-color: #0ea5e9;
+            --secondary: #7C3AED;
+            --secondary-light: #8B5CF6;
+            --secondary-soft: #F3E8FF;
+
+            --accent: #EC4899;
+            --accent-light: #F472B6;
+            --accent-soft: #FCE7F3;
+
+            --success: #10B981;
+            --success-light: #34D399;
+            --success-soft: #D1FAE5;
+
+            --warning: #F59E0B;
+            --warning-light: #FBBF24;
+            --warning-soft: #FEF3C7;
+
+            --error: #EF4444;
+            --error-light: #F87171;
+            --error-soft: #FEE2E2;
+
+            /* ニュートラルカラー */
+            --neutral-50: #FAFAFA;
+            --neutral-100: #F4F4F5;
+            --neutral-200: #E4E4E7;
+            --neutral-300: #D4D4D8;
+            --neutral-400: #A1A1AA;
+            --neutral-500: #71717A;
+            --neutral-600: #52525B;
+            --neutral-700: #3F3F46;
+            --neutral-800: #27272A;
+            --neutral-900: #18181B;
 
             /* システム設定 */
-            --font-sans: 'Inter', 'Noto Sans JP', sans-serif;
-            --card-radius: 1.25rem;
-            --btn-radius: 1rem;
+            --font-sans: 'Inter', 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            --card-radius: 20px;
+            --btn-radius: 16px;
+            --radius-full: 9999px;
 
-            /* シャドウ */
-            --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            /* 高級感のあるシャドウ */
+            --shadow-xs: 0 1px 3px rgba(0, 0, 0, 0.08);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.12);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.12);
+            --shadow-xl: 0 24px 64px rgba(0, 0, 0, 0.16);
 
-            /* グラスモーフィズム設定 */
-            --glass-bg: rgba(255, 255, 255, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.8);
-            --glass-blur: 12px;
-            --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            /* カラーシャドウ */
+            --shadow-primary: 0 8px 24px rgba(80, 70, 229, 0.25);
+            --shadow-accent: 0 8px 24px rgba(236, 72, 153, 0.25);
+            --shadow-success: 0 8px 24px rgba(16, 185, 129, 0.25);
+
+            /* プレミアムグラデーション */
+            --gradient-primary: linear-gradient(135deg, #5046E5 0%, #7C3AED 100%);
+            --gradient-secondary: linear-gradient(135deg, #7C3AED 0%, #EC4899 100%);
+            --gradient-warm: linear-gradient(135deg, #F59E0B 0%, #DC2626 100%);
+            --gradient-cool: linear-gradient(135deg, #3B82F6 0%, #8B5CF6 100%);
+            --gradient-subtle: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.4) 100%);
         }
 
         /* ベーススタイル */
@@ -72,8 +91,8 @@
             font-family: var(--font-sans);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            font-size: 15px;
-            line-height: 1.5;
+            font-size: 16px;
+            line-height: 1.6;
             color: var(--neutral-800);
             margin: 0;
             padding: 0;
@@ -144,42 +163,41 @@
 
         /* レイアウトコンテナ */
         .app-container {
-            max-width: 480px;
-            padding: 1.5rem 1.25rem 3rem;
+            max-width: 440px;
+            padding: 1.5rem 1rem 4rem;
             margin: 0 auto;
-            display: flex;
-            flex-direction: column;
             position: relative;
             z-index: 1;
-            min-height: calc(100vh - 4.5rem);
+            min-height: 100vh;
         }
 
-        /* グラスカードのベース */
-        .glass-card {
-            background-color: var(--glass-bg);
-            backdrop-filter: blur(var(--glass-blur));
-            -webkit-backdrop-filter: blur(var(--glass-blur));
-            border: 1px solid var(--glass-border);
+        /* プレミアムカードベース */
+        .premium-card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: var(--card-radius);
-            box-shadow: var(--glass-shadow),
-                inset 0 1px 1px rgba(255, 255, 255, 0.8);
-            margin-bottom: 1.25rem;
+            box-shadow:
+                0 1px 3px rgba(0, 0, 0, 0.05),
+                0 10px 40px rgba(0, 0, 0, 0.08);
+            margin-bottom: 1.5rem;
             overflow: hidden;
             position: relative;
         }
 
-        .glass-card::before {
+        .premium-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
-            height: 40%;
-            background: linear-gradient(to bottom,
-                    rgba(255, 255, 255, 0.5) 0%,
-                    rgba(255, 255, 255, 0.1) 100%);
-            border-radius: var(--card-radius) var(--card-radius) 0 0;
-            z-index: 0;
+            height: 1px;
+            background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.8) 50%,
+                    transparent 100%);
+            z-index: 1;
         }
 
         /* ヘッダーエリア */
@@ -187,8 +205,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.5rem;
-            padding: 0.5rem 0.25rem;
+            margin-bottom: 2rem;
+            padding: 0.5rem 0;
         }
 
         .logo-area {
@@ -197,940 +215,610 @@
         }
 
         .app-logo {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--primary);
+            font-size: 1.375rem;
+            font-weight: 800;
+            color: var(--neutral-900);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
             text-decoration: none;
+            letter-spacing: -0.02em;
         }
 
         .logo-icon {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 32px;
-            height: 32px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 10px;
+            width: 40px;
+            height: 40px;
+            background: var(--gradient-primary);
+            border-radius: 14px;
             color: white;
-            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.25);
+            box-shadow: var(--shadow-primary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
         }
 
         .action-area {
             display: flex;
-            gap: 0.75rem;
+            gap: 0.5rem;
         }
 
         .header-button {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.7);
-            background-color: rgba(255, 255, 255, 0.35);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            box-shadow:
-                0 4px 10px rgba(79, 70, 229, 0.12),
-                inset 0 1px 1px rgba(255, 255, 255, 0.7);
+            width: 44px;
+            height: 44px;
+            border-radius: 14px;
+            border: 1px solid var(--neutral-200);
+            background-color: white;
             cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
         }
 
         .header-button:hover {
-            background-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .header-button:focus {
-            background-color: rgba(255, 255, 255, 0.45);
-            outline: 2px solid rgba(79, 70, 229, 0.7);
-            outline-offset: 2px;
+            border-color: var(--neutral-300);
+            box-shadow: var(--shadow-sm);
+            transform: translateY(-1px);
         }
 
         .header-button:active {
-            background-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 2px 5px rgba(79, 70, 229, 0.1);
+            transform: translateY(0);
+            box-shadow: var(--shadow-xs);
         }
 
-        /* 設定ボタン（グレー） */
-        .header-button.settings {
-            color: var(--neutral-500);
-        }
-
-        .header-button.settings:hover {
+        .header-button .material-icons-round {
+            font-size: 22px;
             color: var(--neutral-600);
-            border-color: rgba(100, 116, 139, 0.5);
         }
 
-        /* 通知ボタン（オレンジ） */
-        .header-button.notifications {
-            color: #f59e0b;
-        }
-
-        .header-button.notifications:hover {
-            color: #d97706;
-            border-color: rgba(245, 158, 11, 0.5);
+        .header-button.has-badge::after {
+            content: '';
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: var(--error);
+            border-radius: 50%;
+            border: 2px solid white;
         }
 
         /* プロファイルカード */
         .profile-card {
-            padding: 1.5rem;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
+            padding: 2rem;
+            background: var(--gradient-subtle);
             cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: visible;
         }
 
         .profile-card:hover {
-            background-color: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .profile-card:focus {
-            background-color: rgba(255, 255, 255, 0.55);
-            outline: 2px solid rgba(102, 51, 153, 0.7);
-            outline-offset: 3px;
-            box-shadow: 0 0 0 4px rgba(102, 51, 153, 0.2);
+            transform: translateY(-2px);
+            box-shadow:
+                0 1px 3px rgba(0, 0, 0, 0.05),
+                0 20px 60px rgba(0, 0, 0, 0.1);
         }
 
         .profile-card:active {
-            background-color: rgba(255, 255, 255, 0.35);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
         }
 
-        .dots-top-right {
-            top: 15px;
-            right: 15px;
-            transform: rotate(15deg);
-        }
-
-        .dots-bottom-left {
-            bottom: 15px;
-            left: 15px;
-            transform: rotate(-15deg);
-        }
-
-        /* シェアボタン */
-        .share-button.top-right {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            z-index: 5;
+        /* プロファイルコンテンツラッパー */
+        .profile-content {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
         }
 
         /* 動物アイコン */
-        .animal-icon {
-            width: 80px;
-            height: 80px;
+        .animal-icon-container {
             position: relative;
+            width: 88px;
+            height: 88px;
             flex-shrink: 0;
-            z-index: 1;
         }
 
-        .animal-bg {
+        .animal-icon-bg {
             position: absolute;
+            inset: -8px;
+            background: var(--gradient-primary);
+            border-radius: 28px;
+            opacity: 0.15;
+            filter: blur(16px);
+        }
+
+        .animal-icon-wrapper {
+            position: relative;
             width: 100%;
             height: 100%;
-            border-radius: 50%;
-            background: radial-gradient(ellipse at center,
-                    rgba(220, 180, 255, 0.7) 0%,
-                    rgba(180, 130, 240, 0.3) 50%,
-                    rgba(102, 51, 153, 0.1) 100%);
-            filter: blur(15px);
-            opacity: 0.8;
-            transform: scale(1.2);
-        }
-
-        .animal-image {
-            position: relative;
-            z-index: 10;
-            width: 90%;
-            height: 90%;
-            object-fit: contain;
-            filter: drop-shadow(0 8px 15px rgba(102, 51, 153, 0.3));
-        }
-
-        /* ユーザー情報 */
-        .user-info {
-            margin-left: 1.25rem;
-            flex-grow: 1;
-            position: relative;
-            z-index: 1;
-        }
-
-        .greeting {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--neutral-500);
-            letter-spacing: 0.02em;
-            margin-bottom: 0.25rem;
-            position: relative;
-            display: inline-block;
-        }
-
-        .user-type {
-            font-size: 1.4rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, #663399, #9333EA);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-bottom: 0.35rem;
-            letter-spacing: -0.01em;
-            text-shadow: 0 2px 4px rgba(102, 51, 153, 0.1);
-            position: relative;
-        }
-
-        .value-type {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--neutral-600);
-            position: relative;
-            padding-left: 0.5rem;
-        }
-
-        /* 改良されたシェアボタン */
-        .share-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(to bottom, rgba(79, 70, 229, 0.15), rgba(59, 130, 246, 0.1));
-            color: var(--primary);
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            border: 1px solid rgba(79, 70, 229, 0.2);
+            background: white;
+            border-radius: 24px;
+            padding: 12px;
             box-shadow:
-                0 4px 10px rgba(79, 70, 229, 0.12),
-                inset 0 1px 1px rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
-            position: relative;
+                0 4px 12px rgba(80, 70, 229, 0.15),
+                inset 0 1px 1px rgba(255, 255, 255, 0.9);
             overflow: hidden;
-            cursor: pointer;
         }
 
-        .share-button:hover {
-            background: linear-gradient(to bottom, rgba(79, 70, 229, 0.25), rgba(59, 130, 246, 0.15));
-            border-color: rgba(79, 70, 229, 0.4);
-        }
-
-        .share-button:focus {
-            background: linear-gradient(to bottom, rgba(79, 70, 229, 0.2), rgba(59, 130, 246, 0.1));
-            outline: 2px solid rgba(79, 70, 229, 0.7);
-            outline-offset: 2px;
-        }
-
-        .share-button:active {
-            background: linear-gradient(to bottom, rgba(79, 70, 229, 0.1), rgba(59, 130, 246, 0.05));
-            box-shadow: 0 2px 5px rgba(79, 70, 229, 0.1);
-        }
-
-        .share-button::before {
+        .animal-icon-wrapper::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             height: 50%;
-            background: linear-gradient(to bottom,
-                    rgba(255, 255, 255, 0.7) 0%,
-                    rgba(255, 255, 255, 0) 100%);
-            border-radius: 12px 12px 24px 24px / 12px 12px 12px 12px;
+            background: linear-gradient(180deg, rgba(80, 70, 229, 0.05) 0%, transparent 100%);
+            border-radius: 24px 24px 0 0;
+        }
+
+        .animal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ユーザー情報 */
+        .user-info {
+            flex-grow: 1;
+        }
+
+        .greeting {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--neutral-500);
+            margin-bottom: 0.25rem;
+        }
+
+        .user-type {
+            font-size: 1.625rem;
+            font-weight: 800;
+            color: var(--neutral-900);
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            line-height: 1.2;
+        }
+
+        .value-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--primary-soft);
+            color: var(--primary);
+            padding: 0.375rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .value-badge .material-icons-round {
+            font-size: 16px;
+        }
+
+        /* シェアボタン */
+        .share-button {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--shadow-sm);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid var(--neutral-200);
+        }
+
+        .share-button:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-1px);
+        }
+
+        .share-button:active {
+            transform: translateY(0);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .share-button .material-icons-round {
+            font-size: 20px;
+            color: var(--primary);
         }
 
         /* セクションタイトル */
         .section-title {
-            font-size: 1.25rem;
+            font-size: 1.125rem;
             font-weight: 700;
-            color: var(--neutral-800);
-            margin: 1.75rem 0 1rem;
-            padding-left: 0.25rem;
-            position: relative;
+            color: var(--neutral-900);
+            margin: 2.5rem 0 1.25rem;
             display: flex;
             align-items: center;
+            gap: 0.5rem;
         }
 
         .section-title .material-icons-round {
-            margin-right: 0.5rem;
-            background: linear-gradient(to bottom right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            font-size: 24px;
+            color: var(--primary);
         }
 
-        /* 機能カードグリッド - バランス調整 */
+        /* 機能カードグリッド */
         .feature-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 1.125rem;
-            /* ギャップを少し広げてバランス調整 */
-            margin-top: 0.25rem;
+            gap: 1rem;
         }
 
-        /* 機能カード - バランス良いコンパクトサイズ */
+        /* 機能カード */
         .feature-card {
-            padding: 1.375rem 1.125rem;
-            /* パディングを少し増やしてバランス調整 */
+            padding: 1.5rem;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
             cursor: pointer;
+            transition: all 0.2s ease;
             position: relative;
-            overflow: hidden;
-            min-height: 140px;
-            /* 最小高さを設定してバランス確保 */
+            background: white;
         }
 
         .feature-card:hover {
-            background-color: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .feature-card:focus {
-            background-color: rgba(255, 255, 255, 0.55);
-            outline: 2px solid rgba(79, 70, 229, 0.7);
-            outline-offset: 3px;
-            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.2);
+            transform: translateY(-2px);
+            box-shadow:
+                0 1px 3px rgba(0, 0, 0, 0.05),
+                0 20px 60px rgba(0, 0, 0, 0.1);
         }
 
         .feature-card:active {
-            background-color: rgba(255, 255, 255, 0.35);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(0);
         }
 
+        /* 機能アイコン */
         .feature-icon {
-            width: 60px;
-            /* サイズを少し大きく調整 */
-            height: 60px;
-            border-radius: 22px;
-            /* 角を調整 */
+            width: 64px;
+            height: 64px;
+            border-radius: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 26px;
-            /* アイコンサイズを調整 */
             margin-bottom: 1rem;
-            /* マージンを適切に調整 */
-            margin-right: 0;
             position: relative;
-            box-shadow:
-                0 7px 14px rgba(0, 0, 0, 0.09),
-                inset 0 1px 2px rgba(255, 255, 255, 0.4);
-            flex-shrink: 0;
+            overflow: hidden;
         }
 
-        /* アイコンのハイライト効果 */
         .feature-icon::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
+            right: 0;
             height: 50%;
-            background: linear-gradient(to bottom,
-                    rgba(255, 255, 255, 0.5) 0%,
-                    rgba(255, 255, 255, 0) 100%);
-            border-radius: 22px 22px 44px 44px / 22px 22px 22px 22px;
-            opacity: 0.6;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.3) 0%, transparent 100%);
         }
 
-        .feature-content {
+        .feature-icon .material-icons-round {
+            font-size: 32px;
+            color: white;
             position: relative;
             z-index: 1;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            /* コンテンツを中央配置 */
         }
 
-        .feature-content h3 {
-            font-size: 1.025rem;
-            /* フォントサイズを適切に調整 */
-            font-weight: 600;
-            margin-bottom: 0.4rem;
-            /* マージンを調整 */
-            color: var(--neutral-800);
-            letter-spacing: -0.01em;
-            position: relative;
-            display: inline-block;
-            line-height: 1.3;
-            /* 行間を調整 */
-        }
-
-        .feature-content p {
-            font-size: 0.825rem;
-            /* フォントサイズを適切に調整 */
-            color: var(--neutral-600);
-            min-height: auto;
-            line-height: 1.45;
-            /* 行間を調整 */
-            max-width: none;
-            margin: 0;
-        }
-
-        /* 機能アイコンの背景色 */
-        .icon-stats {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.15) 0%, rgba(37, 99, 235, 0.05) 100%);
-            color: #2563eb;
+        .icon-diagnosis {
+            background: var(--gradient-cool);
+            box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
         }
 
         .icon-advisor {
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(5, 150, 105, 0.05) 100%);
-            color: #059669;
+            background: var(--gradient-primary);
+            box-shadow: var(--shadow-primary);
         }
 
-        .icon-resources {
-            background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.05) 100%);
-            color: #d97706;
+        .icon-lantern {
+            background: var(--gradient-warm);
+            box-shadow: 0 8px 24px rgba(245, 158, 11, 0.3);
         }
 
-        .icon-journal {
-            background: linear-gradient(135deg, rgba(236, 72, 153, 0.15) 0%, rgba(219, 39, 119, 0.05) 100%);
-            color: #db2777;
+        /* 機能コンテンツ */
+        .feature-content h3 {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.375rem;
+            color: var(--neutral-900);
+            letter-spacing: -0.01em;
         }
 
-        /* Coming Soonカード - バランス良いコンパクトサイズ */
-        .coming-soon-card {
-            padding: 1.375rem 1.125rem;
-            /* パディングを調整 */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            min-height: 140px;
-            /* 最小高さを設定してバランス確保 */
+        .feature-content p {
+            font-size: 0.8125rem;
+            color: var(--neutral-600);
+            line-height: 1.5;
+            margin: 0;
         }
 
-        .coming-soon-card:hover {
-            background-color: rgba(255, 255, 255, 0.6);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .coming-soon-card:focus {
-            background-color: rgba(255, 255, 255, 0.55);
-            outline: 2px solid rgba(236, 72, 153, 0.7);
-            outline-offset: 3px;
-            box-shadow: 0 0 0 4px rgba(236, 72, 153, 0.2);
-        }
-
-        .coming-soon-card:active {
-            background-color: rgba(255, 255, 255, 0.35);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .feature-icon-soon {
-            width: 60px;
-            /* サイズを調整 */
-            height: 60px;
-            border-radius: 22px;
-            /* 角を調整 */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 26px;
-            /* アイコンサイズを調整 */
-            margin-bottom: 1rem;
-            /* マージンを調整 */
-            margin-right: 0;
-            position: relative;
-            box-shadow:
-                0 7px 14px rgba(0, 0, 0, 0.09),
-                inset 0 1px 2px rgba(255, 255, 255, 0.4);
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-
-        .icon-pulse {
+        /* Coming Soonバッジ */
+        .coming-soon-badge {
             position: absolute;
-            inset: 0;
-            border-radius: 22px;
-            /* 角を調整 */
-            background-color: rgba(255, 255, 255, 0.15);
-        }
-
-        /* COMING SOONラベル - 右上に配置してバランス調整 */
-        .coming-soon-label {
-            background: linear-gradient(to right, rgba(236, 72, 153, 0.9), rgba(139, 92, 246, 0.9));
-            color: white;
-            font-size: 0.575rem;
-            /* サイズを調整 */
-            font-weight: 600;
-            padding: 0.15rem 0.45rem;
-            /* パディングを調整 */
-            border-radius: 9999px;
-            box-shadow:
-                0 3px 8px rgba(236, 72, 153, 0.2),
-                0 1px 3px rgba(139, 92, 246, 0.15),
-                inset 0 1px 1px rgba(255, 255, 255, 0.3);
-            letter-spacing: 0.02em;
-            display: inline-block;
-            position: absolute;
-            top: 0.625rem;
-            /* 位置を調整 */
+            top: 0.75rem;
             right: 0.75rem;
-            /* 右上に配置 */
-            z-index: 1;
+            background: var(--gradient-secondary);
+            color: white;
+            font-size: 0.625rem;
+            font-weight: 700;
+            padding: 0.25rem 0.625rem;
+            border-radius: var(--radius-full);
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
         }
 
-        /* 診断履歴 - シンプルでおしゃれなデザイン */
+        /* 診断履歴 */
+        .history-section {
+            margin-top: 2.5rem;
+        }
+
         .history-card {
             padding: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0.3) 100%);
+            background: white;
         }
 
         .history-list {
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            position: relative;
-            z-index: 1;
         }
 
-        /* シンプルな履歴アイテム */
+        /* 履歴アイテム */
         .history-item {
             position: relative;
-            border-radius: 1rem;
-        }
-
-        .history-content {
-            display: flex;
-            align-items: center;
-            padding: 1.25rem 1.5rem;
-            background: rgba(255, 255, 255, 0.6);
-            border-radius: 1rem;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow:
-                0 4px 12px rgba(0, 0, 0, 0.05),
-                inset 0 1px 1px rgba(255, 255, 255, 0.9);
-            position: relative;
+            background: var(--neutral-50);
+            border-radius: 16px;
+            padding: 1.25rem;
             cursor: pointer;
             transition: all 0.2s ease;
-            z-index: 1;
-            overflow: hidden;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            border: 1px solid var(--neutral-100);
         }
 
-        .history-content:hover {
-            transform: translateY(-2px);
-            box-shadow:
-                0 8px 20px rgba(0, 0, 0, 0.08),
-                inset 0 1px 1px rgba(255, 255, 255, 0.9);
-            background: rgba(255, 255, 255, 0.7);
+        .history-item:hover {
+            background: white;
+            box-shadow: var(--shadow-sm);
+            transform: translateX(4px);
         }
 
-        /* 日付表示 - シンプルなバッジ */
-        .history-date {
+        .history-item:active {
+            transform: translateX(2px);
+        }
+
+        /* 履歴日付 */
+        .history-date-badge {
             position: absolute;
             top: -8px;
             right: 1rem;
             background: var(--primary);
             color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
+            padding: 0.25rem 0.875rem;
+            border-radius: var(--radius-full);
             font-size: 0.75rem;
             font-weight: 600;
-            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.3);
-            z-index: 10;
+            box-shadow: var(--shadow-primary);
         }
 
-        /* 左端のアクセントライン */
-        .history-accent {
-            position: absolute;
-            left: 0;
-            top: 0.5rem;
-            bottom: 0.5rem;
-            width: 4px;
-            background: linear-gradient(to bottom, var(--primary), var(--secondary));
-            border-radius: 0 2px 2px 0;
-            z-index: 2;
-        }
-
-        /* 動物アイコン - シンプル */
+        /* 履歴アイコン */
         .history-icon {
-            width: 3rem;
-            height: 3rem;
-            border-radius: 12px;
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: white;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: rgba(255, 255, 255, 0.7);
-            margin-right: 1rem;
             flex-shrink: 0;
-            box-shadow:
-                0 4px 8px rgba(0, 0, 0, 0.06),
-                inset 0 1px 1px rgba(255, 255, 255, 0.8);
+            box-shadow: var(--shadow-xs);
+            padding: 8px;
         }
 
-        .history-icon-image {
-            width: 70%;
-            height: 70%;
+        .history-icon img {
+            width: 100%;
+            height: 100%;
             object-fit: contain;
-            filter: drop-shadow(0 1px 2px rgba(102, 51, 153, 0.2));
         }
 
         /* 履歴情報 */
         .history-info {
             flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 0.25rem;
         }
 
         .history-type {
             font-size: 1rem;
-            font-weight: 600;
-            color: var(--neutral-800);
+            font-weight: 700;
+            color: var(--neutral-900);
+            margin-bottom: 0.125rem;
         }
 
         .history-value {
-            font-size: 0.85rem;
-            font-weight: 500;
+            font-size: 0.875rem;
             color: var(--neutral-600);
         }
 
-        /* 数値表示 */
+        /* 履歴番号 */
         .history-number {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-left: auto;
-            padding-left: 1rem;
-        }
-
-        /* 空の状態表示 - 価値観発見の旅をイメージ */
-        .empty-state {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg,
-                    rgba(255, 255, 255, 0.6) 0%,
-                    rgba(240, 249, 255, 0.4) 50%,
-                    rgba(237, 233, 254, 0.4) 100%);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            padding: 3rem 2rem;
-            margin: 0.5rem 0;
-            box-shadow:
-                0 8px 25px rgba(79, 70, 229, 0.1),
-                inset 0 1px 1px rgba(255, 255, 255, 0.9);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* 背景の装飾要素 */
-        .empty-state::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background-image:
-                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.08) 0%, transparent 20%),
-                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.06) 0%, transparent 25%),
-                radial-gradient(circle at 40% 80%, rgba(16, 185, 129, 0.05) 0%, transparent 20%);
-            animation: float-background 15s ease-in-out infinite;
-            z-index: 0;
-        }
-
-        @keyframes float-background {
-
-            0%,
-            100% {
-                transform: rotate(0deg) scale(1);
-            }
-
-            50% {
-                transform: rotate(180deg) scale(1.1);
-            }
-        }
-
-        /* アイコンコンテナ - 旅の道具をイメージ */
-        .discovery-icons {
-            position: relative;
-            width: 6rem;
-            height: 6rem;
-            margin-bottom: 1.5rem;
-            z-index: 2;
-        }
-
-        /* メインアイコン（コンパス） */
-        .main-discovery-icon {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 4rem;
-            height: 4rem;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            box-shadow:
-                0 8px 20px rgba(79, 70, 229, 0.3),
-                inset 0 1px 1px rgba(255, 255, 255, 0.3);
-            animation: compass-spin 8s linear infinite;
-            z-index: 3;
-        }
-
-        .main-discovery-icon .material-icons-round {
             font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            opacity: 0.3;
         }
 
-        @keyframes compass-spin {
-            0% {
-                transform: translate(-50%, -50%) rotate(0deg);
-            }
-
-            100% {
-                transform: translate(-50%, -50%) rotate(360deg);
-            }
+        /* ヒントセクション */
+        .hint-section {
+            margin-top: 3rem;
+            margin-bottom: 2rem;
         }
 
-        /* 周囲のアイコン（旅の道具たち） */
-        .floating-icon {
-            position: absolute;
-            width: 2.5rem;
-            height: 2.5rem;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 50%;
+        .hint-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--neutral-900);
+            margin-bottom: 1.5rem;
+            text-align: center;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow:
-                0 4px 12px rgba(0, 0, 0, 0.1),
-                inset 0 1px 1px rgba(255, 255, 255, 0.8);
-            animation: float-orbit 6s ease-in-out infinite;
+            gap: 0.5rem;
         }
 
-        .floating-icon:nth-child(2) {
-            top: 0;
-            right: 0;
-            color: #f59e0b;
-            animation-delay: -1s;
-        }
-
-        .floating-icon:nth-child(3) {
-            bottom: 0;
-            left: 0;
-            color: #10b981;
-            animation-delay: -3s;
-        }
-
-        .floating-icon:nth-child(4) {
-            top: 0;
-            left: 0;
-            color: #ec4899;
-            animation-delay: -5s;
-        }
-
-        .floating-icon .material-icons-round {
-            font-size: 1.2rem;
-        }
-
-        @keyframes float-orbit {
-
-            0%,
-            100% {
-                transform: translateY(0) scale(1);
-            }
-
-            50% {
-                transform: translateY(-8px) scale(1.1);
-            }
-        }
-
-        /* タイトルとメッセージ */
-        .empty-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+        .hint-title .material-icons-round {
+            font-size: 28px;
+            background: var(--gradient-primary);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 0.75rem;
-            z-index: 2;
-            position: relative;
-            animation: text-shimmer 3s ease-in-out infinite;
         }
 
-        @keyframes text-shimmer {
-
-            0%,
-            100% {
-                opacity: 1;
-            }
-
-            50% {
-                opacity: 0.8;
-            }
+        /* ヒントカードリスト */
+        .hint-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
         }
 
-        .empty-message {
-            color: var(--neutral-600);
-            margin-bottom: 2rem;
-            font-size: 1rem;
-            line-height: 1.6;
-            z-index: 2;
-            position: relative;
-        }
-
-        .empty-message-highlight {
-            color: var(--primary);
-            font-weight: 600;
-        }
-
-        /* 旅を始めるボタン */
-        .journey-start-button {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
-            color: white;
-            font-weight: 700;
-            font-size: 1rem;
-            padding: 1rem 2rem;
-            border-radius: 2rem;
-            border: none;
-            box-shadow:
-                0 8px 20px rgba(79, 70, 229, 0.3),
-                inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        /* ヒントカード */
+        .hint-card {
+            background: white;
+            border-radius: var(--card-radius);
+            padding: 1.5rem;
             cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid var(--neutral-100);
             position: relative;
             overflow: hidden;
-            z-index: 2;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
-        .journey-start-button::before {
+        .hint-card::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
-            width: 100%;
+            left: 0;
+            width: 4px;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transition: left 0.8s;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .journey-start-button:hover::before {
-            left: 100%;
-        }
-
-        .journey-start-button:hover {
+        .hint-card:hover {
             transform: translateY(-2px);
-            box-shadow:
-                0 12px 25px rgba(79, 70, 229, 0.4),
-                inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            box-shadow: var(--shadow-md);
+            border-color: var(--primary-light);
         }
 
-        .journey-start-button:active {
+        .hint-card:hover::before {
+            opacity: 1;
+        }
+
+        .hint-card:active {
             transform: translateY(0);
-            box-shadow:
-                0 4px 12px rgba(79, 70, 229, 0.2),
-                inset 0 1px 1px rgba(255, 255, 255, 0.3);
         }
 
-        /* 旅のステップ表示 */
-        .journey-steps {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
-            z-index: 2;
-            position: relative;
-        }
-
-        .journey-step {
-            display: flex;
-            flex-direction: column;
+        /* ヒントカテゴリーラベル */
+        .hint-category {
+            display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-        }
-
-        .step-icon {
-            width: 2.5rem;
-            height: 2.5rem;
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            gap: 0.375rem;
+            background: var(--primary-soft);
             color: var(--primary);
-            box-shadow: 0 2px 8px rgba(79, 70, 229, 0.15);
-            animation: step-pulse 4s ease-in-out infinite;
-        }
-
-        .journey-step:nth-child(2) .step-icon {
-            animation-delay: -1s;
-        }
-
-        .journey-step:nth-child(3) .step-icon {
-            animation-delay: -2s;
-        }
-
-        @keyframes step-pulse {
-
-            0%,
-            100% {
-                transform: scale(1);
-                box-shadow: 0 2px 8px rgba(79, 70, 229, 0.15);
-            }
-
-            50% {
-                transform: scale(1.1);
-                box-shadow: 0 4px 15px rgba(79, 70, 229, 0.25);
-            }
-        }
-
-        .step-text {
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-full);
             font-size: 0.75rem;
-            color: var(--neutral-500);
-            font-weight: 500;
-            text-align: center;
-        }
-
-        .start-button {
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            color: white;
             font-weight: 600;
-            padding: 0.6rem 1.25rem;
-            border-radius: 9999px;
-            border: none;
-            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+            margin-bottom: 0.75rem;
+        }
+
+        .hint-category .material-icons-round {
+            font-size: 14px;
+        }
+
+        /* ヒントコンテンツ */
+        .hint-content h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--neutral-900);
+            margin-bottom: 0.5rem;
+            line-height: 1.4;
+            letter-spacing: -0.01em;
+        }
+
+        .hint-content p {
+            font-size: 0.875rem;
+            color: var(--neutral-600);
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        /* 読むリンク */
+        .hint-read-more {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--primary);
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .hint-read-more:hover {
+            gap: 0.5rem;
+            color: var(--primary-dark);
+        }
+
+        .hint-read-more .material-icons-round {
+            font-size: 18px;
+        }
+
+        /* もっと見るボタン */
+        .hint-more-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 1rem;
+            margin-top: 1rem;
+            background: var(--neutral-50);
+            border: 2px dashed var(--neutral-300);
+            border-radius: var(--card-radius);
+            color: var(--neutral-700);
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
-        .start-button:hover,
-        .start-button:focus {
-            background: linear-gradient(to right, var(--primary-dark), var(--secondary));
-            outline: none;
-            box-shadow:
-                0 6px 15px rgba(79, 70, 229, 0.25),
-                0 0 0 2px rgba(79, 70, 229, 0.3);
+        .hint-more-button:hover {
+            background: white;
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-1px);
         }
 
-        .start-button:active {
-            background: linear-gradient(to right, #4338ca, #7e22ce);
-            box-shadow: 0 3px 8px rgba(79, 70, 229, 0.15);
+        .hint-more-button:active {
+            transform: translateY(0);
         }
 
         /* フィードバックトースト */
@@ -1141,58 +829,35 @@
             transform: translateX(-50%);
             z-index: 1000;
             pointer-events: none;
-            display: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .toast-container.show {
-            display: block;
+            opacity: 1;
+            pointer-events: auto;
         }
 
         .toast {
             display: flex;
             align-items: center;
-            padding: 0.75rem 1.25rem;
-            background-color: rgba(30, 41, 59, 0.95);
+            gap: 0.75rem;
+            padding: 1rem 1.5rem;
+            background: var(--neutral-900);
             color: white;
-            border-radius: 9999px;
-            box-shadow:
-                0 10px 25px rgba(0, 0, 0, 0.1),
-                0 5px 10px rgba(0, 0, 0, 0.05);
+            border-radius: var(--radius-full);
+            box-shadow: var(--shadow-lg);
             font-weight: 500;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .toast-icon {
-            margin-right: 0.5rem;
-            color: #10b981;
+            font-size: 20px;
+            color: var(--success-light);
         }
 
-        /* Material Icons スタイル */
-        .material-icons-round,
-        .material-icons-outlined {
-            font-size: 24px;
-            line-height: 1;
-            vertical-align: middle;
-        }
-
-        /* アイコンサイズの調整 */
-        .icon-md {
-            font-size: 24px;
-        }
-
-        .icon-lg {
-            font-size: 28px;
-        }
-
-        .icon-xl {
-            font-size: 32px;
-        }
-
-        /* アクセシビリティ - フォーカス状態の改善 */
+        /* アクセシビリティ改善 */
         :focus {
-            outline: 2px solid rgba(79, 70, 229, 0.5);
+            outline: 2px solid var(--primary);
             outline-offset: 2px;
         }
 
@@ -1200,12 +865,61 @@
             outline: none;
         }
 
-        :focus-visible {
-            outline: 2px solid rgba(79, 70, 229, 0.5);
-            outline-offset: 2px;
+        /* モバイル最適化 */
+        @media (max-width: 380px) {
+            .app-container {
+                padding: 1.25rem 0.875rem 3rem;
+            }
+
+            .profile-card {
+                padding: 1.5rem;
+            }
+
+            .animal-icon-container {
+                width: 72px;
+                height: 72px;
+            }
+
+            .user-type {
+                font-size: 1.375rem;
+            }
+
+            .feature-grid {
+                gap: 0.875rem;
+            }
+
+            .feature-card {
+                padding: 1.25rem 0.75rem;
+            }
+
+            .feature-icon {
+                width: 56px;
+                height: 56px;
+            }
+
+            .feature-icon .material-icons-round {
+                font-size: 28px;
+            }
+
+            .history-item {
+                padding: 1rem;
+            }
+
+            .history-icon {
+                width: 48px;
+                height: 48px;
+            }
+
+            .hint-card {
+                padding: 1.25rem;
+            }
+
+            .hint-content h3 {
+                font-size: 1rem;
+            }
         }
 
-        /* 見えないが機械的に読み取り可能なテキスト */
+        /* スクリーンリーダー用 */
         .sr-only {
             position: absolute;
             width: 1px;
@@ -1216,140 +930,6 @@
             clip: rect(0, 0, 0, 0);
             white-space: nowrap;
             border-width: 0;
-        }
-
-        /* モバイル最適化 - バランス調整 */
-        @media (max-width: 380px) {
-            .app-container {
-                padding: 1rem 1rem 2rem;
-            }
-
-            .app-header {
-                margin-bottom: 1rem;
-            }
-
-            .logo-icon {
-                width: 28px;
-                height: 28px;
-                border-radius: 8px;
-            }
-
-            .header-button {
-                width: 34px;
-                height: 34px;
-                border-radius: 10px;
-            }
-
-            .profile-card {
-                padding: 1.25rem 1rem;
-            }
-
-            .animal-icon {
-                width: 70px;
-                height: 70px;
-            }
-
-            .user-type {
-                font-size: 1.3rem;
-            }
-
-            .user-info {
-                margin-left: 0.75rem;
-            }
-
-            .section-title {
-                font-size: 1.1rem;
-                margin: 1.5rem 0 0.75rem;
-            }
-
-            .feature-icon,
-            .feature-icon-soon {
-                width: 52px;
-                /* バランス調整 */
-                height: 52px;
-                font-size: 22px;
-                border-radius: 18px;
-                margin-bottom: 0.75rem;
-                /* マージンを調整 */
-            }
-
-            .feature-icon::before {
-                border-radius: 18px 18px 36px 36px / 18px 18px 18px 18px;
-            }
-
-            .icon-pulse {
-                border-radius: 18px;
-            }
-
-            .coming-soon-label {
-                font-size: 0.5rem;
-                /* サイズを調整 */
-                padding: 0.125rem 0.375rem;
-                top: 0.5rem;
-                /* 位置を調整 */
-                right: 0.625rem;
-            }
-
-            .feature-content h3 {
-                font-size: 0.95rem;
-                /* モバイルで適切なサイズに */
-            }
-
-            .feature-content p {
-                font-size: 0.775rem;
-                /* モバイルで適切なサイズに */
-            }
-
-            .feature-grid {
-                gap: 1rem;
-                /* ギャップを調整 */
-            }
-
-            .feature-card,
-            .coming-soon-card {
-                padding: 1.25rem 1rem;
-                /* パディングを調整 */
-                min-height: 130px;
-                /* モバイルでの最小高さを調整 */
-            }
-
-            .history-content {
-                padding: 1rem 1.25rem;
-            }
-
-            .history-icon {
-                width: 2.5rem;
-                height: 2.5rem;
-                margin-right: 0.75rem;
-            }
-
-            .history-number {
-                font-size: 1.25rem;
-            }
-        }
-
-        /* 印刷用スタイル */
-        @media print {
-            .gradient-background {
-                background: white !important;
-            }
-
-            .glass-card {
-                box-shadow: none !important;
-                border: 1px solid #e2e8f0 !important;
-                background-color: white !important;
-                break-inside: avoid;
-            }
-
-            .app-container {
-                max-width: 100%;
-                padding: 0;
-            }
-
-            .bg-decoration,
-            .texture-overlay {
-                display: none;
-            }
         }
     </style>
 </head>
@@ -1365,18 +945,18 @@
         <!-- ヘッダー -->
         <header class="app-header" role="banner">
             <div class="logo-area">
-                <a href="#" class="app-logo" aria-label="アプリのホーム画面に戻る">
+                <a href="#" class="app-logo" aria-label="It's Me ホーム">
                     <div class="logo-icon">
-                        <span class="material-icons-round">psychology</span>
+                        <span class="material-icons-round">auto_awesome</span>
                     </div>
                     <span>It's Me</span>
                 </a>
             </div>
             <div class="action-area">
-                <button class="header-button settings" aria-label="設定を開く" type="button">
+                <button class="header-button" aria-label="設定" type="button">
                     <span class="material-icons-round">settings</span>
                 </button>
-                <button class="header-button notifications" aria-label="通知を表示" type="button">
+                <button class="header-button has-badge" aria-label="通知（新着あり）" type="button">
                     <span class="material-icons-round">notifications</span>
                 </button>
             </div>
@@ -1384,120 +964,180 @@
 
         <main role="main">
             <!-- プロファイルカード -->
-            <div class="glass-card profile-card" id="profileCard" tabindex="0" role="button"
-                aria-label="自分のプロフィールと診断結果の詳細を見る">
-                <!-- 装飾パターン -->
-                <div class="decoration-dots dots-top-right" aria-hidden="true"></div>
-                <div class="decoration-dots dots-bottom-left" aria-hidden="true"></div>
+            <div class="premium-card profile-card" id="profileCard" tabindex="0" role="button" aria-label="プロフィール詳細を表示">
 
                 <!-- シェアボタン -->
-                <button class="share-button top-right" aria-label="診断結果をシェアする" id="shareButton" type="button">
-                    <span class="material-icons-round">share</span>
+                <button class="share-button" aria-label="診断結果をシェア" id="shareButton" type="button"
+                    onclick="event.stopPropagation()">
+                    <span class="material-icons-round">ios_share</span>
                 </button>
 
-                <div class="animal-icon" aria-hidden="true">
-                    <div class="animal-bg"></div>
-                    <img src="./images/hyou.png" alt="ヒョウ" class="animal-image">
-                </div>
-                <div class="user-info">
-                    <p class="greeting">こんにちは！</p>
-                    <h2 class="user-type">ヒョウタイプさん</h2>
-                    <p class="value-type">自己成長と自己理解</p>
+                <div class="profile-content">
+                    <div class="animal-icon-container">
+                        <div class="animal-icon-bg"></div>
+                        <div class="animal-icon-wrapper">
+                            <img src="./images/hyou.png" alt="ヒョウ" class="animal-image">
+                        </div>
+                    </div>
+
+                    <div class="user-info">
+                        <p class="greeting">おかえりなさい</p>
+                        <h1 class="user-type">ヒョウタイプ</h1>
+                        <div class="value-badge">
+                            <span class="material-icons-round">trending_up</span>
+                            自己成長と自己理解
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- 機能ナビゲーション -->
+            <!-- 機能セクション -->
             <section aria-labelledby="features-heading">
                 <h2 class="section-title" id="features-heading">
-                    <span class="material-icons-round">dashboard</span>
-                    機能
+                    <span class="material-icons-round">widgets</span>
+                    診断と機能
                 </h2>
 
                 <div class="feature-grid">
-                    <!-- 価値観診断カード -->
-                    <div class="glass-card feature-card" tabindex="0" id="diagnosisCard" role="button"
-                        aria-label="価値観診断を開始する">
-                        <div class="feature-icon icon-stats" aria-hidden="true">
-                            <span class="material-icons-round icon-lg">insights</span>
+                    <!-- 価値観診断 -->
+                    <div class="premium-card feature-card" tabindex="0" id="diagnosisCard" role="button"
+                        aria-label="価値観診断を開始">
+                        <div class="feature-icon icon-diagnosis">
+                            <span class="material-icons-round">insights</span>
                         </div>
                         <div class="feature-content">
                             <h3>価値観診断</h3>
-                            <p>自分を知る旅へ出発しましょう</p>
+                            <p>48の質問で本当の自分を発見</p>
                         </div>
                     </div>
 
-                    <!-- AIアドバイザーカード -->
-                    <div class="glass-card coming-soon-card" tabindex="0" id="advisorCard" role="button"
-                        aria-label="AIアドバイザー - 近日公開予定">
-                        <div class="coming-soon-label">COMING SOON</div>
-                        <div class="feature-icon-soon icon-advisor" aria-hidden="true">
-                            <div class="icon-pulse"></div>
-                            <span class="material-icons-round icon-lg">psychology</span>
+                    <!-- AIアドバイザー -->
+                    <div class="premium-card feature-card" tabindex="0" id="advisorCard" role="button"
+                        aria-label="AIアドバイザー（近日公開）">
+                        <div class="coming-soon-badge">開発中</div>
+                        <div class="feature-icon icon-advisor">
+                            <span class="material-icons-round">psychology</span>
                         </div>
                         <div class="feature-content">
                             <h3>AIアドバイザー</h3>
-                            <p>あなたの価値観に合わせたパーソナルアドバイス</p>
+                            <p>あなただけのパーソナルコーチ</p>
                         </div>
                     </div>
 
-                    <!-- バリューランタンカード -->
-                    <div class="glass-card coming-soon-card" tabindex="0" id="valueLanternCard" role="button"
-                        aria-label="バリューランタン - 近日公開予定">
-                        <div class="coming-soon-label">COMING SOON</div>
-                        <div class="feature-icon-soon icon-resources" aria-hidden="true">
-                            <div class="icon-pulse"></div>
-                            <span class="material-icons-round icon-lg">light</span>
+                    <!-- バリューランタン -->
+                    <div class="premium-card feature-card" tabindex="0" id="valueLanternCard" role="button"
+                        aria-label="バリューランタン（近日公開）" style="grid-column: 1 / -1;">
+                        <div class="coming-soon-badge">開発中</div>
+                        <div class="feature-icon icon-lantern">
+                            <span class="material-icons-round">wb_incandescent</span>
                         </div>
                         <div class="feature-content">
                             <h3>バリューランタン</h3>
-                            <p>人生を見失わないために灯を灯そう</p>
+                            <p>価値観を照らし、人生の道筋を明確に</p>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <!-- 診断記録 -->
-            <section aria-labelledby="history-heading">
+            <!-- 診断履歴 -->
+            <section class="history-section" aria-labelledby="history-heading">
                 <h2 class="section-title" id="history-heading">
                     <span class="material-icons-round">history</span>
-                    診断の履歴
+                    あなたの成長記録
                 </h2>
-                <div class="glass-card history-card">
+
+                <div class="premium-card history-card">
                     <div class="history-list">
-                        <!-- 2回目の診断結果 -->
-                        <div class="history-item">
-                            <div class="history-date">2025/01/01</div>
-                            <div class="history-content" tabindex="0" role="button" aria-label="2回目の診断結果を見る（2025年1月1日）">
-                                <div class="history-accent"></div>
-                                <div class="history-icon" aria-hidden="true">
-                                    <img src="./images/hyou.png" alt="ヒョウ"
-                                        class="history-icon-image">
-                                </div>
-                                <div class="history-info">
-                                    <div class="history-type">ヒョウタイプ</div>
-                                    <div class="history-value">自己成長と自己理解</div>
-                                </div>
-                                <div class="history-number">2</div>
+                        <!-- 履歴アイテム1 -->
+                        <div class="history-item" tabindex="0" role="button" aria-label="2025年1月1日の診断結果を表示">
+                            <div class="history-date-badge">2025.01.01</div>
+                            <div class="history-icon">
+                                <img src="./images/hyou.png" alt="ヒョウ">
                             </div>
+                            <div class="history-info">
+                                <div class="history-type">ヒョウタイプ</div>
+                                <div class="history-value">自己成長と自己理解</div>
+                            </div>
+                            <div class="history-number">#2</div>
                         </div>
 
-                        <!-- 1回目の診断結果 -->
-                        <div class="history-item">
-                            <div class="history-date">2024/09/02</div>
-                            <div class="history-content" tabindex="0" role="button" aria-label="1回目の診断結果を見る（2024年9月2日）">
-                                <div class="history-accent"></div>
-                                <div class="history-icon" aria-hidden="true">
-                                    <img src="./images/hyou.png" alt="ヒョウ"
-                                        class="history-icon-image">
-                                </div>
-                                <div class="history-info">
-                                    <div class="history-type">ヒョウタイプ</div>
-                                    <div class="history-value">自己成長と自己理解</div>
-                                </div>
-                                <div class="history-number">1</div>
+                        <!-- 履歴アイテム2 -->
+                        <div class="history-item" tabindex="0" role="button" aria-label="2024年9月2日の診断結果を表示">
+                            <div class="history-date-badge">2024.09.02</div>
+                            <div class="history-icon">
+                                <img src="./images/hyou.png" alt="ヒョウ">
                             </div>
+                            <div class="history-info">
+                                <div class="history-type">ヒョウタイプ</div>
+                                <div class="history-value">自己成長と自己理解</div>
+                            </div>
+                            <div class="history-number">#1</div>
                         </div>
                     </div>
+                </div>
+            </section>
+
+            <!-- ヒントセクション -->
+            <section class="hint-section" aria-labelledby="hint-heading">
+                <h2 class="hint-title" id="hint-heading">
+                    <span class="material-icons-round">lightbulb</span>
+                    価値観を深める記事
+                </h2>
+
+                <div class="hint-list">
+                    <!-- ヒント1 -->
+                    <article class="hint-card" tabindex="0" role="button" aria-label="記事を読む：価値観診断は定期的に">
+                        <div class="hint-category">
+                            <span class="material-icons-round">schedule</span>
+                            診断のコツ
+                        </div>
+                        <div class="hint-content">
+                            <h3>価値観診断は他の診断と違って定期的にやるのがいい！</h3>
+                            <p>人生のステージや経験によって価値観は変化します。3ヶ月〜半年に一度の診断で、自分の成長や変化を可視化できます。</p>
+                            <a href="#" class="hint-read-more">
+                                続きを読む
+                                <span class="material-icons-round">arrow_forward</span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- ヒント2 -->
+                    <article class="hint-card" tabindex="0" role="button" aria-label="記事を読む：価値観はなぜ大事？">
+                        <div class="hint-category">
+                            <span class="material-icons-round">psychology</span>
+                            基礎知識
+                        </div>
+                        <div class="hint-content">
+                            <h3>価値観はなぜ大事？あなたの人生の羅針盤</h3>
+                            <p>価値観は日々の選択や決断の基準となります。自分の価値観を知ることで、より納得感のある人生を送ることができます。</p>
+                            <a href="#" class="hint-read-more">
+                                続きを読む
+                                <span class="material-icons-round">arrow_forward</span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- ヒント3 -->
+                    <article class="hint-card" tabindex="0" role="button" aria-label="記事を読む：価値観を知れば楽になる？">
+                        <div class="hint-category">
+                            <span class="material-icons-round">favorite</span>
+                            体験談
+                        </div>
+                        <div class="hint-content">
+                            <h3>価値観を知れば楽になる？利用者の声から見える変化</h3>
+                            <p>「自分らしさ」を受け入れられるようになった、迷いが減った、人間関係が改善した...価値観診断がもたらす変化とは。</p>
+                            <a href="#" class="hint-read-more">
+                                続きを読む
+                                <span class="material-icons-round">arrow_forward</span>
+                            </a>
+                        </div>
+                    </article>
+
+                    <!-- もっと見るボタン -->
+                    <button class="hint-more-button" id="moreHintsButton" type="button">
+                        <span class="material-icons-round">expand_more</span>
+                        もっと記事を見る
+                    </button>
                 </div>
             </section>
         </main>
@@ -1506,118 +1146,126 @@
         <div class="toast-container" id="toastContainer" role="status" aria-live="polite">
             <div class="toast">
                 <span class="material-icons-round toast-icon">check_circle</span>
-                <span id="toastMessage">操作が完了しました</span>
+                <span id="toastMessage">完了しました</span>
             </div>
         </div>
     </div>
 
     <script>
-        // ページ読み込み時の初期化
-        document.addEventListener('DOMContentLoaded', function () {
-            // DOM参照の取得
-            const profileCard = document.getElementById('profileCard');
-            const shareButton = document.getElementById('shareButton');
-            const diagnosisCard = document.getElementById('diagnosisCard');
-            const advisorCard = document.getElementById('advisorCard');
-            const valueLanternCard = document.getElementById('valueLanternCard');
-            const historyContents = document.querySelectorAll('.history-content');
+        // DOM要素の取得
+        const profileCard = document.getElementById('profileCard');
+        const shareButton = document.getElementById('shareButton');
+        const diagnosisCard = document.getElementById('diagnosisCard');
+        const advisorCard = document.getElementById('advisorCard');
+        const valueLanternCard = document.getElementById('valueLanternCard');
+        const historyItems = document.querySelectorAll('.history-item');
+        const hintCards = document.querySelectorAll('.hint-card');
+        const moreHintsButton = document.getElementById('moreHintsButton');
 
-            // キーボードイベントの処理関数
-            function handleKeyboardInteraction(element, handler) {
-                if (element) {
-                    element.addEventListener('keydown', function (e) {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                            e.preventDefault();
-                            handler.call(this, e);
-                        }
-                    });
+        // プロファイルカードクリック
+        if (profileCard) {
+            profileCard.addEventListener('click', function () {
+                window.location.href = 'assessment_result_page.html';
+            });
+
+            profileCard.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    window.location.href = 'assessment_result_page.html';
                 }
-            }
+            });
+        }
 
-            // プロファイルカードのイベント設定
-            if (profileCard) {
-                profileCard.addEventListener('click', function () {
-                    window.location.href = 'assessment_result_page.html';
+        // シェアボタン
+        if (shareButton) {
+            shareButton.addEventListener('click', async function (e) {
+                e.stopPropagation();
+
+                try {
+                    if (navigator.share) {
+                        await navigator.share({
+                            title: '私の価値観タイプは「ヒョウ」でした！',
+                            text: '価値観診断の結果、私は「自己成長と自己理解」を大切にするヒョウタイプでした。あなたも診断してみませんか？',
+                            url: window.location.href,
+                        });
+                        showToast('シェアしました');
+                    } else {
+                        const shareText = '私の価値観タイプは「ヒョウ」でした！\n価値観診断の結果、私は「自己成長と自己理解」を大切にするヒョウタイプでした。';
+                        await navigator.clipboard.writeText(shareText);
+                        showToast('リンクをコピーしました');
+                    }
+                } catch (error) {
+                    console.error('シェアエラー:', error);
+                }
+            });
+        }
+
+        // 機能カードの設定
+        function setupCard(card, message, action) {
+            if (card) {
+                card.addEventListener('click', function () {
+                    showToast(message);
+                    if (action) action();
                 });
 
-                handleKeyboardInteraction(profileCard, function () {
-                    window.location.href = 'assessment_result_page.html';
-                });
-            }
-
-            // シェアボタンの機能
-            if (shareButton) {
-                shareButton.addEventListener('click', async function (e) {
-                    e.stopPropagation(); // プロファイルカードのクリックイベントを阻止
-
-                    try {
-                        // Web Share APIが利用可能か確認
-                        if (navigator.share) {
-                            await navigator.share({
-                                title: '私の価値観診断結果',
-                                text: '私はヒョウタイプ（自己成長と自己理解）でした！あなたの価値観も診断してみませんか？',
-                                url: window.location.href,
-                            });
-                            showToast('シェアしました！');
-                        } else {
-                            // Web Share APIが使えない場合はクリップボードにコピー
-                            const shareText = '私はヒョウタイプ（自己成長と自己理解）でした！あなたの価値観も診断してみませんか？ ' + window.location.href;
-                            await navigator.clipboard.writeText(shareText);
-                            showToast('結果をクリップボードにコピーしました');
-                        }
-                    } catch (error) {
-                        console.error('シェアに失敗しました', error);
-                        showToast('シェアできませんでした');
+                card.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        showToast(message);
+                        if (action) action();
                     }
                 });
             }
+        }
 
-            // 機能カードのイベント設定
-            function setupFeatureCard(card, message, action) {
-                if (card) {
-                    card.addEventListener('click', function () {
-                        showToast(message);
-                        if (action) action();
-                    });
+        setupCard(diagnosisCard, '診断を開始します', function () {
+            // 診断ページへ遷移
+        });
 
-                    handleKeyboardInteraction(card, function () {
-                        showToast(message);
-                        if (action) action();
-                    });
-                }
-            }
+        setupCard(advisorCard, 'AIアドバイザーは準備中です');
+        setupCard(valueLanternCard, 'バリューランタンは準備中です');
 
-            setupFeatureCard(diagnosisCard, '新しい診断を開始します', function () {
-                // 実際のアプリでは診断ページへ遷移
-                // window.location.href = 'diagnosis.html';
+        // 履歴アイテム
+        historyItems.forEach(function (item) {
+            item.addEventListener('click', function () {
+                window.location.href = 'assessment_result_page.html';
             });
 
-            setupFeatureCard(advisorCard, 'AIアドバイザーは近日公開予定です');
-            setupFeatureCard(valueLanternCard, 'バリューランタンは近日公開予定です');
-
-            // 履歴項目のイベント設定
-            historyContents.forEach(function (item) {
-                item.addEventListener('click', function () {
-                    const historyType = this.querySelector('.history-type').textContent;
-                    const historyDate = this.closest('.history-item').querySelector('.history-date').textContent.trim();
-                    showToast(`${historyDate}の${historyType}の詳細を表示します`);
-
-                    // 実際のアプリでは履歴詳細ページへの遷移を実装
+            item.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
                     window.location.href = 'assessment_result_page.html';
-                });
-
-                handleKeyboardInteraction(item, function () {
-                    const historyType = this.querySelector('.history-type').textContent;
-                    const historyDate = this.closest('.history-item').querySelector('.history-date').textContent.trim();
-                    showToast(`${historyDate}の${historyType}の詳細を表示します`);
-
-                    // 実際のアプリでは履歴詳細ページへの遷移を実装
-                    window.location.href = 'assessment_result_page.html';
-                });
+                }
             });
         });
 
-        // トースト表示関数
+        // ヒントカード
+        hintCards.forEach(function (card) {
+            card.addEventListener('click', function () {
+                const title = card.querySelector('h3').textContent;
+                showToast(`記事「${title}」を表示します`);
+                // 実際には記事ページへ遷移
+            });
+
+            card.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const title = card.querySelector('h3').textContent;
+                    showToast(`記事「${title}」を表示します`);
+                    // 実際には記事ページへ遷移
+                }
+            });
+        });
+
+        // もっと見るボタン
+        if (moreHintsButton) {
+            moreHintsButton.addEventListener('click', function () {
+                showToast('もっと記事を読み込みます');
+                // 実際には追加の記事を読み込む処理
+            });
+        }
+
+        // トースト表示
         function showToast(message) {
             const toastContainer = document.getElementById('toastContainer');
             const toastMessage = document.getElementById('toastMessage');
@@ -1626,10 +1274,9 @@
                 toastMessage.textContent = message;
                 toastContainer.classList.add('show');
 
-                // 3秒後に非表示
                 setTimeout(function () {
                     toastContainer.classList.remove('show');
-                }, 3000);
+                }, 2500);
             }
         }
     </script>
